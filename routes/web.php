@@ -36,6 +36,10 @@ Route::resource('keywords', 'KeywordController');
 
 Route::resource('users', 'UserController')->only(['index', 'create', 'store']);
 
+Route::get('visualisations', 'VisualisationController@index')->name('visualisations.index');
+Route::get('visualisations/articles', 'VisualisationController@articles')->name('visualisations.articles');
+Route::get('visualisations/keywords', 'VisualisationController@keywords')->name('visualisations.keywords');
+
 Auth::routes(['register' => false]);
 
 Route::get('/home', 'HomeController@index')->name('home');
