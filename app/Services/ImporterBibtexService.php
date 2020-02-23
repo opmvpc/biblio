@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Article;
 use App\Keyword;
 use Carbon\Carbon;
+use Illuminate\Support\Str;
 use RenanBr\BibTexParser\Parser;
 use RenanBr\BibTexParser\Listener;
 
@@ -74,8 +75,6 @@ class ImporterBibtexService
                     $nouvelArticle->attachKeyword($nouveauKeyword->id);
                 })
                 ;
-            // Keyword::all()->dd();
-            // $nouvelArticle->keywords()->get()->dd();
         })
         ;
     }
@@ -88,6 +87,7 @@ class ImporterBibtexService
     private function sanatizeText($bibtexAttribute): string
     {
         $sanatyzedText = preg_replace('/{(.*)}/', '$1', $bibtexAttribute);
+        $sanatyzedText = Str::limit($sanatyzedText, 2000);
 
         return $sanatyzedText;
     }
