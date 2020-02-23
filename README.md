@@ -9,7 +9,7 @@
 ### 1. cloner le repos
 
 ```bash
-$git clone https://github.com/opmvpc/biblio.git
+$ git clone https://github.com/opmvpc/biblio.git
 $ cp biblio
 ```
 
