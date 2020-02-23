@@ -27,6 +27,7 @@ class ImporterBibtexService
         $parser = new Parser();
         $listener = new Listener();
         $parser->addListener($listener);
+        // dump($this->bibtex);
         $parser->parseString($this->bibtex);
         $articles = $listener->export();
 
@@ -53,7 +54,7 @@ class ImporterBibtexService
             ];
         })
         ->each( function ($article) {
-            $nouvelArticle = Article::firstOrCreate(['reference' => $article['reference']], $article);
+            $nouvelArticle = Article::firstOrCreate(['titre' => $article['titre']], $article);
 
             if (request()->has('cite_par')) {
                 $nouvelArticle->attachEstCite(request()->cite_par);
@@ -63,7 +64,7 @@ class ImporterBibtexService
                 $nouvelArticle->attachCite(request()->cite);
             }
 
-            collect(explode(',', $nouvelArticle->keywords))
+            collect(explode(',', $article['keywords']))
                 ->map( function ($keyword) {
                     return trim($keyword);
                 })

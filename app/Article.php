@@ -17,7 +17,6 @@ class Article extends Model
         'abstract',
         'doi',
         'bibtex',
-        'keywords',
         'path_fiche_lecture',
         'path_article',
     ];
