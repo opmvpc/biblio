@@ -80,7 +80,7 @@
 
                     <div class="form-group">
                         <label for="inp-keywords" class="">Ajouter des mots-clés</label>
-                        <select name="keywords[]" id="inp-keywords" multiple class="form-control">
+                        <select name="keywords[]" id="inp-keywords" multiple required class="form-control">
                             @foreach ($keywordsList as $keywordId => $keyword)
                                 <option
                                     value="{{ $keywordId }}"
@@ -113,7 +113,7 @@
 
                     <div class="form-group">
                         <label for="inp-cite" class="">Ajouter des Citations</label>
-                        <select name="cite[]" id="inp-cite" multiple class="form-control">
+                        <select name="cite[]" id="inp-cite" multiple required class="form-control">
                             @foreach ($articles as $article)
                                 <option
                                     value="{{ $article->id }}"
@@ -146,7 +146,7 @@
 
                     <div class="form-group">
                         <label for="inp-cite_par" class="">Ajouter des Citations</label>
-                        <select name="cite_par[]" id="inp-cite_par" multiple class="form-control">
+                        <select name="cite_par[]" id="inp-cite_par" multiple required class="form-control">
                             @foreach ($articles as $article)
                                 <option
                                     value="{{ $article->id }}"

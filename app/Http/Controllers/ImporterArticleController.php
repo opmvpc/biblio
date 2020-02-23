@@ -17,6 +17,7 @@ class ImporterArticleController extends Controller
     {
         $articles = Article
             ::select(['id', 'titre', 'reference'])
+            ->orderBy('titre', 'asc')
             ->get()
             ;
 

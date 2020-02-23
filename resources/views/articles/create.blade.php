@@ -19,7 +19,7 @@
 
                     <div class="form-group">
                         <label for="inp-categories" class="">Catégories</label>
-                        <select name="categories[]" id="inp-categories" multiple class="form-control">
+                        <select name="categories[]" id="inp-categories" multiple required class="form-control">
                             @foreach ($categories as $key => $categorie)
                                 <option
                                     value="{{ $key }}"

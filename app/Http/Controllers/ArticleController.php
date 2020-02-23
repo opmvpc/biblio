@@ -113,6 +113,8 @@ class ArticleController extends Controller
 
         $articles = Article
             ::select(['id', 'titre', 'reference'])
+            ->where('id', '<>', $article->id)
+            ->orderBy('titre', 'asc')
             ->get()
             ;
 

@@ -24,6 +24,7 @@ class CreateArticlesTable extends Migration
             $table->string('url')->nullable();
             $table->text('abstract')->nullable();
             $table->string('doi')->nullable();
+            $table->string('keywords')->nullable();
             $table->string('path_fiche_lecture')->nullable();
             $table->string('path_article')->nullable();
             $table->timestamps();

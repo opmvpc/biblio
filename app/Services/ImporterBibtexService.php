@@ -87,8 +87,7 @@ class ImporterBibtexService
     private function sanatizeText($bibtexAttribute): string
     {
         $sanatyzedText = preg_replace('/{(.*)}/', '$1', $bibtexAttribute);
-        $sanatyzedText = Str::limit($sanatyzedText, 2000);
-
+        $sanatyzedText = Str::limit($sanatyzedText,2000);
         return $sanatyzedText;
     }
 

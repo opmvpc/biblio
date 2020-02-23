@@ -39,6 +39,7 @@ Route::resource('users', 'UserController')->only(['index', 'create', 'store']);
 Route::get('visualisations', 'VisualisationController@index')->name('visualisations.index');
 Route::get('visualisations/articles', 'VisualisationController@articles')->name('visualisations.articles');
 Route::get('visualisations/keywords', 'VisualisationController@keywords')->name('visualisations.keywords');
+Route::get('visualisations/api/articles', 'VisualisationController@dataArticle')->name('visualisations.api.articles');
 
 Auth::routes(['register' => false]);
 
