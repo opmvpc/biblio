@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Article;
 use App\Keyword;
 use Carbon\Carbon;
+use Illuminate\Support\Str;
 use RenanBr\BibTexParser\Parser;
 use RenanBr\BibTexParser\Listener;
 
@@ -53,7 +54,7 @@ class ImporterBibtexService
             ];
         })
         ->each( function ($article) {
-            $nouvelArticle = Article::firstOrCreate(['reference' => $article['reference']], $article);
+            $nouvelArticle = Article::firstOrCreate(['titre' => $article['titre']], $article);
 
             if (request()->has('cite_par')) {
                 $nouvelArticle->attachEstCite(request()->cite_par);
@@ -87,7 +88,7 @@ class ImporterBibtexService
     private function sanatizeText($bibtexAttribute): string
     {
         $sanatyzedText = preg_replace('/{(.*)}/', '$1', $bibtexAttribute);
-
+        $sanatyzedText = Str::limit($sanatyzedText,2000);
         return $sanatyzedText;
     }
 
