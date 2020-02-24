@@ -10,6 +10,20 @@
                 {!! Form::open()->post()->route('articles.store') !!}
 
                     {!! Form::text('titre', 'Titre') !!}
+
+                    <div class="form-group">
+                        <label for="inp-pertinence" class="">Pertinence</label>
+                        <select name="pertinence" id="inp-pertinence" class="form-control">
+                            @foreach ($pertinences as $key => $pertinence)
+                                <option
+                                    value="{{ $key }}"
+                                    class="text-{{ $pertinence->get('couleur') }}"
+                                    {{ $key == old('pertinence') ? 'selected' : '' }}
+                                >{{ $pertinence->get('nom') }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+
                     {!! Form::text('reference', 'Reference') !!}
                     {!! Form::text('doi', 'Doi') !!}
                     {!! Form::urlInput('url', 'Url') !!}
@@ -21,6 +35,7 @@
                             @foreach ($categories as $key => $categorie)
                                 <option
                                     value="{{ $key }}"
+                                    {{ in_array($key, old('categories') ?? []) ? 'selected' : '' }}
                                 >{{ $categorie }}</option>
                             @endforeach
                         </select>

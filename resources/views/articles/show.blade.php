@@ -26,6 +26,17 @@
                     </dd>
 
                     <dt class="col-3 text-right">
+                        Pertinence:
+                    </dt>
+                    <dd class="col-9">
+                        <div>
+                            <span class="badge badge-{{ $article->getPertinenceData('couleur') }}">
+                                {{ $article->getPertinenceData('nom') }}
+                            </span>
+                        </div>
+                    </dd>
+
+                    <dt class="col-3 text-right">
                         Référence:
                     </dt>
                     <dd class="col-9">

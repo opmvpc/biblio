@@ -4,6 +4,7 @@
         <thead>
             <tr>
                 <th scope="col">Titre</th>
+                <th scope="col" class="text-center align-middle">Pertinence</th>
                 <th scope="col">Auteurs</th>
                 <th scope="col">Date Publication</th>
                 <th scope="col">Citations</th>
@@ -16,6 +17,11 @@
             @forelse ($articles as $article)
                 <tr>
                     <td>{{ Str::limit($article->titre, 100) }}</td>
+                    <td class="text-center">
+                        <span class="badge badge-{{ $article->getPertinenceData('couleur') }}">
+                            {{ $article->getPertinenceData('nom') }}
+                        </span>
+                    </td>
                     <td>{{ Str::limit($article->auteurs->implode('nom', ', '), 100) }}</td>
                     <td>{{ $article->date->format('m/Y') }}</td>
                     <td>{{ $article->cite()->count() }}</td>

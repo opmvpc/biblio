@@ -26,6 +26,7 @@ class CreateArticlesTable extends Migration
             $table->string('doi')->nullable();
             $table->string('path_fiche_lecture')->nullable();
             $table->string('path_article')->nullable();
+            $table->enum('pertinence', ['1', '2', '3'])->nullable();
             $table->timestamps();
 
             $table->index('titre');

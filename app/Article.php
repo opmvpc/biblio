@@ -4,6 +4,7 @@ namespace App;
 
 use App\Traits\Sluggable;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Storage;
 
 class Article extends Model
@@ -22,6 +23,7 @@ class Article extends Model
         'bibtex',
         'path_fiche_lecture',
         'path_article',
+        'pertinence',
     ];
 
     protected $dates = [
@@ -130,5 +132,24 @@ class Article extends Model
     public function detachAuteur(int $auteurId): void
     {
         $this->auteurs()->detach($auteurId);
+    }
+
+    public static function getPertinenceDatas(): Collection
+    {
+        $datas = collect();
+        $datas->put(1, collect(['nom' => 'Faible', 'couleur' => 'danger']));
+        $datas->put(2, collect(['nom' => 'Moyenne', 'couleur' => 'info']));
+        $datas->put(3, collect(['nom' => 'Haute', 'couleur' => 'success']));
+
+        return $datas;
+    }
+
+    public function getPertinenceData(string $attributeName): string
+    {
+        if (! $this->pertinence) {
+            return '';
+        }
+
+        return static::getPertinenceDatas()->get($this->pertinence)->get($attributeName);
     }
 }

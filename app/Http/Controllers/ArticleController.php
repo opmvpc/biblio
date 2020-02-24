@@ -64,8 +64,9 @@ class ArticleController extends Controller
     public function create()
     {
         $categories = Categorie::pluck('nom', 'id');
+        $pertinences = Article::getPertinenceDatas();
 
-        return view('articles.create', compact('categories'));
+        return view('articles.create', compact('categories', 'pertinences'));
     }
 
     /**
@@ -115,6 +116,7 @@ class ArticleController extends Controller
     public function edit(Article $article)
     {
         $categories = Categorie::pluck('nom', 'id');
+        $pertinences = Article::getPertinenceDatas();
 
         $keywordsList = Keyword
             ::whereNotIn('id', $article->keywords->pluck('id'))
@@ -152,7 +154,7 @@ class ArticleController extends Controller
             ->get()
             ;
 
-        return view('articles.edit', compact('article', 'categories', 'articlesCite', 'articlesEstCite', 'keywordsList', 'keywords', 'auteursList', 'auteurs'));
+        return view('articles.edit', compact('article', 'categories', 'articlesCite', 'articlesEstCite', 'keywordsList', 'keywords', 'auteursList', 'auteurs', 'pertinences'));
     }
 
     /**
