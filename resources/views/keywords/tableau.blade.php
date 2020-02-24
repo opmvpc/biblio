@@ -5,7 +5,7 @@
             <tr>
                 <th scope="col">Nom</th>
                 <th scope="col">Nombre d'articles</th>
-                <th scope="col" class="text-center align-middle">Actions</th>
+                <th scope="col" class="text-center">Actions</th>
             </tr>
         </thead>
         <tbody>

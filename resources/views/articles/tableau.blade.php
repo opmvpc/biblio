@@ -4,12 +4,12 @@
         <thead>
             <tr>
                 <th scope="col">Titre</th>
-                <th scope="col" class="text-center align-middle">Pertinence</th>
+                <th scope="col" class="text-center">Pertinence</th>
                 <th scope="col">Auteurs</th>
                 <th scope="col">Date Publication</th>
                 <th scope="col">Citations</th>
                 <th scope="col">Cité par</th>
-                <th scope="col" class="text-center align-middle">Actions</th>
+                <th scope="col" class="text-center">Actions</th>
             </tr>
         </thead>
         <tbody>

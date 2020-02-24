@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="row justify-content-center">
-    <div class="col-md-8">
+    <div class="col-12">
         @if (session('ok'))
             <div class="alert alert-success" role="alert">
                 {{ session('ok') }}
@@ -24,7 +24,7 @@
                           <tr>
                             <th scope="col">Nom</th>
                             <th scope="col">Nombre d'articles</th>
-                            <th scope="col" class="text-center align-middle">Actions</th>
+                            <th scope="col" class="text-center">Actions</th>
                           </tr>
                         </thead>
                         <tbody>

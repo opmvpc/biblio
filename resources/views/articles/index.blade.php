@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="row justify-content-center">
-    <div class="col-md-8">
+    <div class="col-12">
         <div class="d-flex justify-content-center my-3">
             <a
                 class="btn btn-xs mx-2 {{ request()->query('categorie') == false ? 'btn-dark' : 'btn-light' }}"

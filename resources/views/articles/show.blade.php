@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="row justify-content-center">
-    <div class="col-md-8">
+    <div class="col-12">
 
         <h5 class="mb-3">{{ $article->titre }}</h5>
 
