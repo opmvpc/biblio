@@ -40,7 +40,7 @@
                 </tr>
             @empty
                 <tr>
-                    <td colspan="6" class="text-center">Pas encore d'article</td>
+                    <td colspan="7" class="text-center">Pas encore d'article</td>
                 </tr>
             @endforelse
 

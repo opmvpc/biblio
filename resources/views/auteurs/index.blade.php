@@ -22,7 +22,7 @@
             @endauth
         </div>
         <div class="card">
-            <div class="card-header">{{ __('Liste des mots-clés') }}</div>
+            <div class="card-header">{{ __('Liste des auteurs') }}</div>
 
             <div class="card-body">
                 @include('auteurs.tableau', $auteurs)
