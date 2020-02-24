@@ -104,7 +104,11 @@ class ArticleController extends Controller
     public function edit(Article $article)
     {
         $categories = Categorie::pluck('nom', 'id');
-        $keywordsList = Keyword::pluck('nom', 'id');
+
+        $keywordsList = Keyword
+            ::whereNotIn('id', $article->keywords->pluck('id'))
+            ->pluck('nom', 'id');
+
         $keywords = $article
             ->keywords()
             ->withCount('articles')

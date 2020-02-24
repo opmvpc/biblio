@@ -7,7 +7,14 @@
         <h5 class="mb-3">{{ $article->titre }}</h5>
 
         <div class="card mb-4">
-            <div class="card-header">Informations</div>
+            <div class="card-header">
+                <div class="d-flex justify-content-between align-items-center">
+                    <span class="">Informations</span>
+                    @auth
+                        <a href="{{ route('articles.edit', $article) }}" class="btn btn-link float-right py-0">modifier</a>
+                    @endauth
+                </div>
+            </div>
 
             <div class="card-body">
                 <dl class="row">

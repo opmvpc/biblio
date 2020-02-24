@@ -7,7 +7,10 @@
         <div class="card mb-3">
             <div class="card-header">
                 <div class="d-flex justify-content-between align-items-center">
-                    {{ __('Informations') }}
+                    <span class="">Informations</span>
+                    @auth
+                        <a href="{{ route('categories.edit', $category) }}" class="btn btn-link float-right py-0">modifier</a>
+                    @endauth
                 </div>
             </div>
             <div class="card-body">

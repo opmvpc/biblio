@@ -17,7 +17,7 @@ class CreateArticlesTable extends Migration
             $table->bigIncrements('id');
             $table->string('auteurs', 2005);
             $table->string('titre', 505)->unique();
-            $table->string('reference');
+            $table->string('reference')->nullable();
             $table->date('date');
             $table->text('resume')->nullable();
             $table->text('bibtex')->nullable();
