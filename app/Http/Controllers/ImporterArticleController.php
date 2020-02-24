@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Article;
 use Illuminate\Http\Request;
+use App\Services\ImporterDoiService;
 use App\Services\ImporterBibtexService;
+use Illuminate\Support\Facades\Validator;
 use App\Http\Requests\ImporterArticleRequest;
 
 class ImporterArticleController extends Controller
@@ -26,7 +28,22 @@ class ImporterArticleController extends Controller
 
     public function store(ImporterArticleRequest $request)
     {
-        (new ImporterBibtexService($request->bibtex))->save();
+        if ($request->has('doi')) {
+            // dd((new ImporterDoiService($request->doi))->getBibtex());
+            try {
+                (new ImporterDoiService($request->doi))->save();
+            } catch (\InvalidArgumentException $e) {
+                $validator = Validator::make($request->only('doi'), []);
+                $validator->errors()->add('doi', 'Le doi est invalide');
+                return redirect()
+                    ->back()
+                    ->withInput()
+                    ->withErrors($validator);
+            }
+        } elseif ($request->has('bibtex')) {
+            (new ImporterBibtexService($request->bibtex))->save();
+        }
+
 
         return redirect()
             ->route('articles.index')

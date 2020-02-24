@@ -11,3 +11,8 @@
 @import "~toastr/toastr";
 @import '~dropzone/src/dropzone.scss';
 /* purgecss end ignore */
+
+
+#app > main > div {
+    margin-right: 0;
+}

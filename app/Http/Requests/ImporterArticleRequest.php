@@ -24,7 +24,10 @@ class ImporterArticleRequest extends FormRequest
     public function rules()
     {
         return [
-            'bibtex' => 'required|string',
+            'doi' => 'nullable|required_without:bibtex|string',
+            'bibtex' => 'nullable|required_without:doi|string',
+            'cite.*' => 'nullable|integer',
+            'cite_par.*' => 'nullable|integer',
         ];
     }
 }

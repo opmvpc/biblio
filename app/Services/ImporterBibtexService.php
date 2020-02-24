@@ -28,7 +28,6 @@ class ImporterBibtexService
         $parser = new Parser();
         $listener = new Listener();
         $parser->addListener($listener);
-        // dump($this->bibtex);
         $parser->parseString($this->bibtex);
         $articles = $listener->export();
 

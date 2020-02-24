@@ -113,8 +113,8 @@
 
                     <div class="form-group">
                         <label for="inp-cite" class="">Ajouter des Citations</label>
-                        <select name="cite[]" id="inp-cite" multiple required class="form-control">
-                            @foreach ($articles as $article)
+                        <select name="cite[]" id="inp-cite" multiple class="form-control">
+                            @foreach ($articlesCite as $article)
                                 <option
                                     value="{{ $article->id }}"
                                 >{{ $article->titre .' | '. $article->reference }}</option>
@@ -124,6 +124,8 @@
                             Sélectionnez des articles qui sont cités par cet article
                         </small>
                     </div>
+
+                    {!! Form::text('import_doi_cite', 'Ou importer et ajouter par Doi')->placeholder('doi de la citation') !!}
 
                     {!! Form::submit('Ajouter') !!}
 
@@ -146,8 +148,8 @@
 
                     <div class="form-group">
                         <label for="inp-cite_par" class="">Ajouter des Citations</label>
-                        <select name="cite_par[]" id="inp-cite_par" multiple required class="form-control">
-                            @foreach ($articles as $article)
+                        <select name="cite_par[]" id="inp-cite_par" multiple class="form-control">
+                            @foreach ($articlesEstCite as $article)
                                 <option
                                     value="{{ $article->id }}"
                                 >{{ $article->titre .' | '. $article->reference }}</option>
@@ -157,6 +159,8 @@
                             Sélectionnez des articles qui citent cet article
                         </small>
                     </div>
+
+                    {!! Form::text('import_doi_cite_par', 'Ou importer et ajouter par Doi')->placeholder('doi de la citation') !!}
 
                     {!! Form::submit('Ajouter') !!}
 

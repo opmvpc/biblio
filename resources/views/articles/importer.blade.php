@@ -11,25 +11,29 @@
 
                     {!! Form::open()->post()->route('articles.importer.store') !!}
 
+                        {!! Form::text('doi', 'Doi') !!}
+
                         {!! Form::textarea('bibtex', 'BibTeX')->attrs(['rows' => 15]) !!}
 
                         <div class="form-group">
-                            <label for="inp-cite_par" class="">Cité par</label>
-                            <select name="cite_par[]" id="inp-cite_par" multiple class="form-control">
+                            <label for="inp-cite" class="">Cite (Citations)</label>
+                            <select name="cite[]" id="inp-cite" multiple class="form-control">
                                 @foreach ($articles as $article)
                                     <option
                                         value="{{ $article->id }}"
+                                        {{ in_array($article->id, old('cite', [])) ? 'selected' : ''}}
                                     >{{ $article->titre .' | '. $article->reference }}</option>
                                 @endforeach
                             </select>
                         </div>
 
                         <div class="form-group">
-                            <label for="inp-cite" class="">Cite</label>
-                            <select name="cite[]" id="inp-cite" multiple class="form-control">
+                            <label for="inp-cite_par" class="">Cité par (Références)</label>
+                            <select name="cite_par[]" id="inp-cite_par" multiple class="form-control">
                                 @foreach ($articles as $article)
                                     <option
                                         value="{{ $article->id }}"
+                                        {{ in_array($article->id, old('cite_par', [])) ? 'selected' : ''}}
                                     >{{ $article->titre .' | '. $article->reference }}</option>
                                 @endforeach
                             </select>

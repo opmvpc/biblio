@@ -14,7 +14,9 @@ class ImporterDoiService
 
     public function save(): void
     {
-        (new ImporterBibtexService($this->getBibtex()))->save();
+        $bibtex = $this->getBibtex();
+        // dd($bibtex);
+        (new ImporterBibtexService($bibtex))->save();
     }
 
     public function getBibtex(): string
@@ -31,6 +33,10 @@ class ImporterDoiService
         $err = curl_error($ch);
         curl_close ($ch);
 
+        if ($response == 'The resource you are looking for doesn\'t exist.') {
+            throw new \InvalidArgumentException("Error Processing Request, wrong Doi", 1);
+        }
+
         return $this->sanatize($response);
     }
 
@@ -41,7 +47,9 @@ class ImporterDoiService
 
     public function sanatize(string $response): string
     {
-        $count = 1;
-        return str_replace('https://doi.org/'. $this->doi() .',', '', $response, $count);
+        $explodeResponse = preg_split('/\r\n|\r|\n/', $response, 2);
+        $explodeResponse[0] = "@article{\n";
+
+        return implode('', $explodeResponse);
     }
 }

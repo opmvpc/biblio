@@ -3,6 +3,7 @@
 namespace Tests\Unit\Services;
 
 use Tests\TestCase;
+use InvalidArgumentException;
 use App\Services\ImporterDoiService;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
@@ -26,6 +27,36 @@ class ImporterDoiServiceTest extends TestCase
     }
 
     /**
+     * test mauvais doi
+     *
+     * @return void
+     */
+    public function testMauvaisDoi()
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $doi = 'nimp';
+        $bibtex = (new ImporterDoiService($doi))->getBibtex();
+
+        $this->assertEquals('The resource you are looking for doesn\'t exist.', $bibtex);
+        $this->assertDatabaseMissing('articles', ['titre' => 'A Programming Environment for Visual Block-Based Domain-Specific Languages']);
+    }
+
+    /**
+     * test mauvais doi
+     *
+     * @return void
+     */
+    public function testMauvaisDoiSave()
+    {
+        $this->expectException(InvalidArgumentException::class);
+
+        $doi = 'nimp';
+        $isSaved = (new ImporterDoiService($doi))->save();
+
+        $this->assertTrue($isSaved);
+    }
+
+    /**
      * test de la création d'un objet ImporterBibtexService
      *
      * @return void
@@ -36,7 +67,7 @@ class ImporterDoiServiceTest extends TestCase
 
         $service = new ImporterDoiService($doi);
 
-        $this->assertEquals(static::getBibtexArticle(), $service->getBibtex());
+        $this->assertSame(static::getBibtexArticle(), $service->getBibtex());
     }
 
     /**
@@ -51,6 +82,20 @@ class ImporterDoiServiceTest extends TestCase
 
         $this->assertDatabaseHas('articles', ['titre' => 'A Programming Environment for Visual Block-Based Domain-Specific Languages']);
     }
+
+    /**
+     * test de la création d'un objet ImporterBibtexService
+     *
+     * @return void
+     */
+    public function testGetBibtexDoiMajuscules()
+    {
+        $doi = '10.1504/IJMSO.2014.065444';
+        (new ImporterDoiService($doi))->save();
+
+        $this->assertDatabaseHas('articles', ['titre' => 'A domain-specific language for Virtual Classrooms']);
+    }
+
 
 
     private static function getDoiArticle(): string

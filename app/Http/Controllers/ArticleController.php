@@ -111,14 +111,23 @@ class ArticleController extends Controller
             ->orderBy('articles_count', 'desc')
             ->get();
 
-        $articles = Article
+        $articlesCite = Article
             ::select(['id', 'titre', 'reference'])
             ->where('id', '<>', $article->id)
+            ->whereNotIn('id', $article->cite->pluck('id'))
             ->orderBy('titre', 'asc')
             ->get()
             ;
 
-        return view('articles.edit', compact('article', 'categories', 'articles', 'keywordsList', 'keywords'));
+        $articlesEstCite = Article
+            ::select(['id', 'titre', 'reference'])
+            ->where('id', '<>', $article->id)
+            ->whereNotIn('id', $article->estCite->pluck('id'))
+            ->orderBy('titre', 'asc')
+            ->get()
+            ;
+
+        return view('articles.edit', compact('article', 'categories', 'articlesCite', 'articlesEstCite', 'keywordsList', 'keywords'));
     }
 
     /**

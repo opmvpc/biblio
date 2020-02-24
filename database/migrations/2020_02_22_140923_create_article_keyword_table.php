@@ -18,8 +18,8 @@ class CreateArticleKeywordTable extends Migration
             $table->unsignedBigInteger('article_id');
             $table->unsignedBigInteger('keyword_id');
 
-            $table->foreign('article_id')->references('id')->on('articles');
-            $table->foreign('keyword_id')->references('id')->on('keywords');
+            $table->foreign('article_id')->references('id')->on('articles')->onDelete('cascade');;
+            $table->foreign('keyword_id')->references('id')->on('keywords')->onDelete('cascade');;
         });
     }
 

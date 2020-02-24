@@ -11488,3 +11488,7 @@ button.toast-close-button {
 
 /* purgecss end ignore */
 
+#app > main > div {
+  margin-right: 0;
+}
+

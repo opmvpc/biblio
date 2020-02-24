@@ -18,8 +18,8 @@ class CreateArticleCategorieTable extends Migration
             $table->unsignedBigInteger('article_id');
             $table->unsignedBigInteger('categorie_id');
 
-            $table->foreign('article_id')->references('id')->on('articles');
-            $table->foreign('categorie_id')->references('id')->on('categories');
+            $table->foreign('article_id')->references('id')->on('articles')->onDelete('cascade');;
+            $table->foreign('categorie_id')->references('id')->on('categories')->onDelete('cascade');;
         });
     }
 

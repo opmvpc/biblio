@@ -5,16 +5,16 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">Visualisations</div>
+                <div class="card-header">Citations entre articles</div>
 
-                <div class="card-body">
-                    <div id="vis"></div>
+                <div class="card-body d-flex justify-content-center">
+                    <div id="vis" class="p-3"></div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-@dump($articles)
+{{-- @dump($articles) --}}
 @endsection
 
 @push('scripts')
@@ -30,8 +30,8 @@
 
 <script type="text/javascript">
     document.addEventListener("DOMContentLoaded", () => {
-        const datas = @json($articles);
-        console.log(datas);
+        // const datas = @json($articles);
+        // console.log(datas);
         var yourVlSpec = {
                 "$schema": "https://vega.github.io/schema/vega/v5.0.json",
                 "config": {
