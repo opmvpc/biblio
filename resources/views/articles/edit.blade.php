@@ -21,18 +21,11 @@
 
                     {!! Form::text('titre', 'Titre') !!}
 
-                    <div class="form-group">
-                        <label for="inp-pertinence" class="">Pertinence</label>
-                        <select name="pertinence" id="inp-pertinence" class="form-control">
-                            @foreach ($pertinences as $key => $pertinence)
-                                <option
-                                    value="{{ $key }}"
-                                    class="text-{{ $pertinence->get('couleur') }}"
-                                    {{ $key == old('pertinence', $article->pertinence) ? 'selected' : '' }}
-                                >{{ $pertinence->get('nom') }}</option>
-                            @endforeach
-                        </select>
-                    </div>
+                    @component('components.inputs.pertinence', [
+                        'pertinences' => $pertinences,
+                        'selected' => $article->pertinence,
+                    ])
+                    @endcomponent
 
                     {!! Form::text('reference', 'Reference') !!}
                     {!! Form::text('doi', 'Doi') !!}
