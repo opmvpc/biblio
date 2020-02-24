@@ -22,7 +22,7 @@
                         Auteurs:
                     </dt>
                     <dd class="col-9">
-                        {{ $article->auteurs }}
+                        {{ Str::limit($article->auteurs->implode('nom', ', '), 100) }}
                     </dd>
 
                     <dt class="col-3 text-right">
@@ -38,13 +38,13 @@
                     <dd class="col-9">
                         {{ $article->doi }}
                     </dd>
-{{--
+
                     <dt class="col-3 text-right">
                         Mots-clés:
                     </dt>
                     <dd class="col-9">
-                        {{ $article->keywords }}
-                    </dd> --}}
+                        {{ Str::limit($article->keywords->implode('nom', ', '), 100) }}
+                    </dd>
 
                     <dt class="col-3 text-right">
                         Url:
@@ -114,6 +114,18 @@
 
             <div class="card-body">
                 @component('articles.tableau', ['articles' => $article->estCite])
+                @endcomponent
+            </div>
+        </div>
+
+        <div class="card mb-4">
+            <div class="card-header">Auteurs</div>
+
+            <div class="card-body">
+                @component('auteurs.tableau', [
+                    'auteurs' => $auteurs,
+                    'article' => $article,
+                ])
                 @endcomponent
             </div>
         </div>

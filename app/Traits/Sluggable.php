@@ -14,4 +14,10 @@ trait Sluggable
         $this->attributes['nom'] = $value;
         $this->attributes['slug'] = Str::slug($value);
     }
+
+    public function setTitreAttribute($value): void
+    {
+        $this->attributes['titre'] = $value;
+        $this->attributes['slug'] = Str::slug($value);
+    }
 }

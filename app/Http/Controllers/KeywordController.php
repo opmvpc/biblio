@@ -123,7 +123,7 @@ class KeywordController extends Controller
 
         return redirect()
             ->back()
-            ->with('ok', 'Mot-clé détaché!');
+            ->with('ok', 'Mots-clés attachés!');
     }
 
     public function detachKeyword(Request $request, Article $article)

@@ -15,9 +15,11 @@ class CreateKeywordsTable extends Migration
     {
         Schema::create('keywords', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('nom')->unique();
-            $table->string('slug');
+            $table->string('nom', 305)->unique();
+            $table->string('slug', 305)->unique();
             $table->timestamps();
+
+            $table->index('nom');
         });
     }
 

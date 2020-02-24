@@ -28,7 +28,7 @@ class ImporterArticleController extends Controller
 
     public function store(ImporterArticleRequest $request)
     {
-        if ($request->has('doi')) {
+        if ($request->has('doi') && $request->doi) {
             // dd((new ImporterDoiService($request->doi))->getBibtex());
             try {
                 (new ImporterDoiService($request->doi))->save();

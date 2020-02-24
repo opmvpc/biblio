@@ -18,8 +18,8 @@ class CreateCiteTable extends Migration
             $table->unsignedBigInteger('cite_id');
             $table->unsignedBigInteger('citeur_id');
 
-            $table->foreign('cite_id')->references('id')->on('articles');
-            $table->foreign('citeur_id')->references('id')->on('articles');
+            $table->foreign('cite_id')->references('id')->on('articles')->onDelete('cascade');
+            $table->foreign('citeur_id')->references('id')->on('articles')->onDelete('cascade');
         });
     }
 

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Auteur;
 use App\Article;
 use App\Keyword;
 use App\Categorie;
@@ -33,12 +34,16 @@ class ArticleController extends Controller
                 $query->where('titre', 'LIKE', '%'.request()->recherche.'%')
                 ->orWhere('resume', 'LIKE', '%'.request()->recherche.'%')
                 ->orWhere('date', 'LIKE', '%'.request()->recherche.'%')
-                ->orWhere('keywords', 'LIKE', '%'.request()->recherche.'%')
                 ->orWhere('abstract', 'LIKE', '%'.request()->recherche.'%')
-                ->orWhere('auteurs', 'LIKE', '%'.request()->recherche.'%')
                 ->orWhere('doi', 'LIKE', '%'.request()->recherche.'%')
                 ->orWhere('reference', 'LIKE', '%'.request()->recherche.'%')
                 ->orWhereHas('categories', function ($query) {
+                    $query->where('nom', 'LIKE', '%'.request()->recherche.'%');
+                })
+                ->orWhereHas('keywords', function ($query) {
+                    $query->where('nom', 'LIKE', '%'.request()->recherche.'%');
+                })
+                ->orWhereHas('auteurs', function ($query) {
                     $query->where('nom', 'LIKE', '%'.request()->recherche.'%');
                 });
             })
@@ -92,7 +97,13 @@ class ArticleController extends Controller
             ->orderBy('articles_count', 'desc')
             ->get();
 
-        return view('articles.show', compact('article', 'keywords'));
+        $auteurs = $article
+            ->auteurs()
+            ->withCount('articles')
+            ->orderBy('articles_count', 'desc')
+            ->get();
+
+        return view('articles.show', compact('article', 'keywords', 'auteurs'));
     }
 
     /**
@@ -108,6 +119,16 @@ class ArticleController extends Controller
         $keywordsList = Keyword
             ::whereNotIn('id', $article->keywords->pluck('id'))
             ->pluck('nom', 'id');
+
+        $auteursList = Auteur
+            ::whereNotIn('id', $article->auteurs->pluck('id'))
+            ->pluck('nom', 'id');
+
+        $auteurs = $article
+            ->auteurs()
+            ->withCount('articles')
+            ->orderBy('articles_count', 'desc')
+            ->get();
 
         $keywords = $article
             ->keywords()
@@ -131,7 +152,7 @@ class ArticleController extends Controller
             ->get()
             ;
 
-        return view('articles.edit', compact('article', 'categories', 'articlesCite', 'articlesEstCite', 'keywordsList', 'keywords'));
+        return view('articles.edit', compact('article', 'categories', 'articlesCite', 'articlesEstCite', 'keywordsList', 'keywords', 'auteursList', 'auteurs'));
     }
 
     /**

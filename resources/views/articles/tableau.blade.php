@@ -15,8 +15,8 @@
 
             @forelse ($articles as $article)
                 <tr>
-                    <td>{{ $article->titre }}</td>
-                    <td>{{ $article->auteurs }}</td>
+                    <td>{{ Str::limit($article->titre, 100) }}</td>
+                    <td>{{ Str::limit($article->auteurs->implode('nom', ', '), 100) }}</td>
                     <td>{{ $article->date->format('m/Y') }}</td>
                     <td>{{ $article->cite()->count() }}</td>
                     <td>{{ $article->estCite()->count() }}</td>

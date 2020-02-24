@@ -2,15 +2,18 @@
 
 namespace App;
 
+use App\Traits\Sluggable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
 
 class Article extends Model
 {
+    use Sluggable;
+
     protected $fillable = [
-        'auteurs',
         'reference',
         'titre',
+        'slug',
         'resume',
         'date',
         'url',
@@ -107,5 +110,25 @@ class Article extends Model
     public function detachKeyword(int $keywordId): void
     {
         $this->keywords()->detach($keywordId);
+    }
+
+    public function auteurs()
+    {
+        return $this->belongsToMany(Auteur::class, 'article_auteur', 'article_id', 'auteur_id');
+    }
+
+    public function attachAuteur(int $auteurId): void
+    {
+        $this->auteurs()->attach($auteurId);
+    }
+
+    public function attachAuteurs(array $auteurIds): void
+    {
+        $this->auteurs()->attach($auteurIds);
+    }
+
+    public function detachAuteur(int $auteurId): void
+    {
+        $this->auteurs()->detach($auteurId);
     }
 }

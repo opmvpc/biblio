@@ -20,10 +20,8 @@
                 {!! Form::open()->put()->route('articles.update', [$article])->fill($article) !!}
 
                     {!! Form::text('titre', 'Titre') !!}
-                    {!! Form::text('auteurs', 'Auteurs') !!}
                     {!! Form::text('reference', 'Reference') !!}
                     {!! Form::text('doi', 'Doi') !!}
-                    {{-- {!! Form::text('keywords', 'Mots-clés') !!} --}}
                     {!! Form::urlInput('url', 'Url') !!}
                     {!! Form::date('date', 'Date de publication')->value(old('date', $article->date->format('Y-m-d'))) !!}
 
@@ -114,10 +112,10 @@
                     <div class="form-group">
                         <label for="inp-cite" class="">Ajouter des Citations</label>
                         <select name="cite[]" id="inp-cite" multiple class="form-control">
-                            @foreach ($articlesCite as $article)
+                            @foreach ($articlesCite as $articleCite)
                                 <option
-                                    value="{{ $article->id }}"
-                                >{{ $article->titre .' | '. $article->reference }}</option>
+                                    value="{{ $articleCite->id }}"
+                                >{{ $articleCite->titre .' | '. $articleCite->reference }}</option>
                             @endforeach
                         </select>
                         <small class="form-text text-muted">
@@ -125,7 +123,7 @@
                         </small>
                     </div>
 
-                    {!! Form::text('import_doi_cite', 'Ou importer et ajouter par Doi')->placeholder('doi de la citation') !!}
+                    {!! Form::text('import_doi_cite', 'Ou importer et ajouter par Doi')->placeholder('doi de la citation')->help('<a target="_blank" href="https://citation.crosscite.org/">Vérifier doi</a>') !!}
 
                     {!! Form::submit('Ajouter') !!}
 
@@ -149,10 +147,10 @@
                     <div class="form-group">
                         <label for="inp-cite_par" class="">Ajouter des Citations</label>
                         <select name="cite_par[]" id="inp-cite_par" multiple class="form-control">
-                            @foreach ($articlesEstCite as $article)
+                            @foreach ($articlesEstCite as $articleCitePar)
                                 <option
-                                    value="{{ $article->id }}"
-                                >{{ $article->titre .' | '. $article->reference }}</option>
+                                    value="{{ $articleCitePar->id }}"
+                                >{{ $articleCitePar->titre .' | '. $articleCitePar->reference }}</option>
                             @endforeach
                         </select>
                         <small class="form-text text-muted">
@@ -160,7 +158,39 @@
                         </small>
                     </div>
 
-                    {!! Form::text('import_doi_cite_par', 'Ou importer et ajouter par Doi')->placeholder('doi de la citation') !!}
+                    {!! Form::text('import_doi_cite_par', 'Ou importer et ajouter par Doi')->placeholder('doi de la citation')->help('<a target="_blank" href="https://citation.crosscite.org/">Vérifier doi</a>') !!}
+
+                    {!! Form::submit('Ajouter') !!}
+
+                {!! Form::close() !!}
+            </div>
+        </div>
+
+        <div class="card mb-4">
+            <div class="card-header">Auteurs</div>
+
+            <div class="card-body">
+                @component('auteurs.tableau', [
+                    'auteurs' => $auteurs,
+                    'article' => $article,
+                ])
+                @endcomponent
+
+                {!! Form::open()->post()->route('articles.attach.auteurs', [$article]) !!}
+
+                    <div class="form-group">
+                        <label for="inp-auteurs" class="">Ajouter des mots-clés</label>
+                        <select name="auteurs[]" id="inp-auteurs" multiple required class="form-control">
+                            @foreach ($auteursList as $auteursId => $auteurs)
+                                <option
+                                    value="{{ $auteursId }}"
+                                >{{ $auteurs }}</option>
+                            @endforeach
+                        </select>
+                        <small class="form-text text-muted">
+                            Sélectionnez des auteurs pour cet article
+                        </small>
+                    </div>
 
                     {!! Form::submit('Ajouter') !!}
 

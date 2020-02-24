@@ -11,9 +11,9 @@
 
                     {!! Form::open()->post()->route('articles.importer.store') !!}
 
-                        {!! Form::text('doi', 'Doi') !!}
+                        {!! Form::text('doi', 'Doi')->placeholder('doi de la citation')->help('<a target="_blank" href="https://citation.crosscite.org/">Vérifier doi</a>') !!}
 
-                        {!! Form::textarea('bibtex', 'BibTeX')->attrs(['rows' => 15]) !!}
+                        {!! Form::textarea('bibtex', 'BibTeX')->placeholder('Coller une ou plusieures réferences BibTeX')->attrs(['rows' => 15]) !!}
 
                         <div class="form-group">
                             <label for="inp-cite" class="">Cite (Citations)</label>

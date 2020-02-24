@@ -33,7 +33,7 @@ class CitationController extends Controller
 
         return redirect()
             ->back()
-            ->with('ok', 'Citations ajoutées!');
+            ->with('ok', 'Citations attachées!');
     }
 
     public function attachEstCitePar(Request $request, Article $article)
@@ -56,7 +56,7 @@ class CitationController extends Controller
 
         return redirect()
             ->back()
-            ->with('ok', 'Citations ajoutées!');
+            ->with('ok', 'Citations attachées!');
     }
 
     public function detachCite(Request $request, Article $article)

@@ -56,6 +56,7 @@ class ImporterBibtexServiceTest extends TestCase
 
         $this->assertDatabaseHas('articles', ['titre' => 'An introduction to object-oriented programming with a didactic microworld: objectKarel']);
         $this->assertDatabaseHas('keywords', ['nom' => 'Teaching/learning strategies']);
+        $this->assertDatabaseHas('auteurs', ['nom' => 'Xinogalos']);
     }
 
     /**

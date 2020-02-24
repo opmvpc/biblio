@@ -27,13 +27,13 @@ Route::get('articles/{article}/detach/cite', 'CitationController@detachCite')->n
 Route::get('articles/{article}/detach/cite-par', 'CitationController@detachEstCitePar')->name('articles.detach.estCitePar');
 Route::post('articles/{article}/attach/keyword', 'KeywordController@attachKeyword')->name('articles.attach.keywords');
 Route::get('articles/{article}/detach/keyword', 'KeywordController@detachKeyword')->name('articles.detach.keyword');
+Route::post('articles/{article}/attach/auteur', 'AuteurController@attachAuteur')->name('articles.attach.auteurs');
+Route::get('articles/{article}/detach/auteur', 'AuteurController@detachAuteur')->name('articles.detach.auteur');
 
 Route::resource('articles', 'ArticleController');
-
 Route::resource('categories', 'CategorieController');
-
 Route::resource('keywords', 'KeywordController');
-
+Route::resource('auteurs', 'AuteurController');
 Route::resource('users', 'UserController')->only(['index', 'create', 'store']);
 
 Route::get('visualisations', 'VisualisationController@index')->name('visualisations.index');

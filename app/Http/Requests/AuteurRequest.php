@@ -5,7 +5,7 @@ namespace App\Http\Requests;
 use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
-class ArticleRequest extends FormRequest
+class AuteurRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -30,17 +30,15 @@ class ArticleRequest extends FormRequest
             'max:300',
         ];
 
-        if (! isset($this->route()->parameters()['article'])) {
-            $rules[] = Rule::unique('articles');
+        if (! isset($this->route()->parameters()['auteur'])) {
+            $rules[] = Rule::unique('auteurs');
         } else {
-            $rules[] = Rule::unique('articles')->ignore($this->route()->parameters()['article']);
+            $rules[] = Rule::unique('auteurs')->ignore($this->route()->parameters()['auteur']);
         }
 
 
         return [
-            'titre' => $rules,
-            'url' => 'required|max:150|string',
-            'date' => 'required|max:150|date',
+            'nom' => $rules,
         ];
     }
 }

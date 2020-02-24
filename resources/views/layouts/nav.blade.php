@@ -19,6 +19,9 @@
                 <li class="nav-item">
                     <a class="nav-link {{ request()->is('keywords*') ? 'active' : '' }}" href="{{ route('keywords.index') }}">{{ __('Mots-clés') }}</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link {{ request()->is('auteurs*') ? 'active' : '' }}" href="{{ route('auteurs.index') }}">{{ __('Auteurs') }}</a>
+                </li>
                 @auth
                     <li class="nav-item">
                         <a class="nav-link {{ request()->is('users*') ? 'active' : '' }}" href="{{ route('users.index') }}">{{ __('Équipe') }}</a>

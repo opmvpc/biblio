@@ -10,10 +10,8 @@
                 {!! Form::open()->post()->route('articles.store') !!}
 
                     {!! Form::text('titre', 'Titre') !!}
-                    {!! Form::text('auteurs', 'Auteurs') !!}
                     {!! Form::text('reference', 'Reference') !!}
                     {!! Form::text('doi', 'Doi') !!}
-                    {{-- {!! Form::text('keywords', 'Mots-clés') !!} --}}
                     {!! Form::urlInput('url', 'Url') !!}
                     {!! Form::date('date', 'Date de publication') !!}
 

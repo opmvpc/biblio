@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Article;
+use App\Auteur;
 use App\Keyword;
 use Carbon\Carbon;
 use Illuminate\Support\Str;
@@ -42,14 +43,14 @@ class ImporterBibtexService
         })
         ->map( function ($article) {
             return [
-                'titre' => $this->sanatizeText($article->get('title')),
-                'auteurs' => $this->sanatizeText($article->get('author')),
+                'titre' => Str::limit($this->sanatizeText($article->get('title'), 295)),
+                'auteurs' => $article->get('author'),
                 'reference' => $this->sanatizeText($article->get('citation-key')),
                 'date' => $this->getDate($article->get('year'), $article->get('month')),
                 'url' => $this->sanatizeText($article->get('url')),
                 'bibtex' => $article->get('"_original'),
-                'abstract' => $this->sanatizeText($article->get('abstract')),
-                'keywords' => $this->sanatizeText($article->get('keywords')),
+                'abstract' => $article->get('abstract'),
+                'keywords' => $article->get('keywords'),
                 'doi' => $this->sanatizeText($article->get('doi')),
             ];
         })
@@ -58,24 +59,13 @@ class ImporterBibtexService
 
             if (request()->has('cite_par')) {
                 $nouvelArticle->attachEstCite(request()->cite_par);
-            }
-
-            if (request()->has('cite')) {
+            } if (request()->has('cite')) {
                 $nouvelArticle->attachCite(request()->cite);
             }
 
-            collect(explode(',', $article['keywords']))
-                ->map( function ($keyword) {
-                    return trim($keyword);
-                })
-                ->filter()
-                ->each( function ($keyword) use ($nouvelArticle) {
-                    $nouveauKeyword = Keyword::firstOrCreate(['nom' => $keyword]);
-                    $nouvelArticle->attachKeyword($nouveauKeyword->id);
-                })
-                ;
-        })
-        ;
+            $this->attachResources($nouvelArticle, $article['keywords'], 'Keyword');
+            $this->attachResources($nouvelArticle, $article['auteurs'], 'Auteur');
+        });
     }
 
     public function bibtex(): string
@@ -85,13 +75,42 @@ class ImporterBibtexService
 
     private function sanatizeText($bibtexAttribute): string
     {
-        $sanatyzedText = preg_replace('/{(.*)}/', '$1', $bibtexAttribute);
-        $sanatyzedText = Str::limit($sanatyzedText,2000);
+        $sanatyzedText = preg_replace('/{|}/', '', $bibtexAttribute);
         return $sanatyzedText;
     }
 
     private function getDate(?int $annee, ?int $mois): Carbon
     {
         return Carbon::createFromDate($annee ?? 1975, $mois ?? 1, 1);
+    }
+
+    public function attachResources(Article $article, ?string $attachables, string $attachableType): void
+    {
+        collect(explode(',', $attachables))
+            ->map( function ($attachable) {
+                return trim($attachable);
+            })
+            ->filter()
+            ->each( function ($attachable) use ($article, $attachableType) {
+                $attachable = $this->sanatizeText($attachable);
+                if ($attachableType == 'Keyword') {
+                    $this->attachKeyword($article, $attachable);
+                } elseif ($attachableType == 'Auteur') {
+                    $this->attachAuteur($article, $attachable);
+                }
+            })
+            ;
+    }
+
+    public function attachKeyword(Article $article, string $keyword): void
+    {
+        $nouveauKeyword = Keyword::firstOrCreate(['nom' => Str::limit($keyword, 295)]);
+        $article->attachKeyword($nouveauKeyword->id);
+    }
+
+    public function attachAuteur(Article $article, string $auteur): void
+    {
+        $nouveauKeyword = Auteur::firstOrCreate(['nom' => Str::limit($auteur, 295)]);
+        $article->attachAuteur($nouveauKeyword->id);
     }
 }
