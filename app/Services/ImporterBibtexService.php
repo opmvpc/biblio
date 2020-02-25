@@ -48,7 +48,7 @@ class ImporterBibtexService
                 'titre' => Str::limit($this->sanatizeText($article->get('title'), 295)),
                 'auteurs' => $article->get('author'),
                 'reference' => $this->sanatizeText($article->get('citation-key')),
-                'date' => $this->getDate($article->get('year'), $article->get('month')),
+                'date' => $this->getDate(intval($article->get('year')), intval($article->get('month'))),
                 'url' => $this->sanatizeText($article->get('url')),
                 'bibtex' => $article->get('"_original'),
                 'abstract' => $article->get('abstract'),
