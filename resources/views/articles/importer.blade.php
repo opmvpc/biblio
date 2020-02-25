@@ -8,10 +8,16 @@
                 <div class="card-header">Importer des articles</div>
 
                 <div class="card-body">
-
+                    <p class="alert alert-info">
+                        Importez les données d'un ou plusieurs articles en introduisant un doi OU une liste de références BibTeX.
+                        <br>Vous pouvez les lier à d'autres articles (citations, références).
+                    </p>
                     {!! Form::open()->post()->route('articles.importer.store') !!}
 
-                        {!! Form::text('doi', 'Doi')->placeholder('doi de la citation')->help('<a target="_blank" href="https://citation.crosscite.org/">Vérifier doi</a>') !!}
+                        @component('components.inputs.doi', [
+                            'name' => 'doi'
+                        ])
+                        @endcomponent
 
                         {!! Form::textarea('bibtex', 'BibTeX')->placeholder('Coller une ou plusieures réferences BibTeX')->attrs(['rows' => 15]) !!}
 

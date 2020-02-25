@@ -1,5 +1,7 @@
 require('./bootstrap');
 require('./alerts');
+require('./helpers.js')
+require('./datatable.js');
 
 const dropzone = require('dropzone');
 

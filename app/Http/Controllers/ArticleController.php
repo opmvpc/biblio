@@ -8,11 +8,40 @@ use App\Keyword;
 use App\Categorie;
 use Illuminate\Http\Request;
 use App\Http\Requests\ArticleRequest;
+use Yajra\DataTables\Facades\DataTables;
 
 class ArticleController extends Controller
 {
     public function __construct() {
         $this->middleware('auth')->except(['index', 'show']);
+    }
+
+    public function api(Request $request)
+    {
+        $query = Article
+            ::with(['categories', 'auteurs'])
+            ->withCount(['cite', 'estCite'])
+            ->orderBy('date', 'Desc')
+            ->when($request->has('search'), function ($query) {
+                $query->where('titre', 'LIKE', '%'.request()->search['value'].'%')
+                ->orWhere('resume', 'LIKE', '%'.request()->search['value'].'%')
+                ->orWhere('date', 'LIKE', '%'.request()->search['value'].'%')
+                ->orWhere('abstract', 'LIKE', '%'.request()->search['value'].'%')
+                ->orWhere('doi', 'LIKE', '%'.request()->search['value'].'%')
+                ->orWhere('reference', 'LIKE', '%'.request()->search['value'].'%')
+                ->orWhereHas('categories', function ($query) {
+                    $query->where('nom', 'LIKE', '%'.request()->search['value'].'%');
+                })
+                ->orWhereHas('keywords', function ($query) {
+                    $query->where('nom', 'LIKE', '%'.request()->search['value'].'%');
+                })
+                ->orWhereHas('auteurs', function ($query) {
+                    $query->where('nom', 'LIKE', '%'.request()->search['value'].'%');
+                });
+            })
+            ;
+
+        return DataTables::eloquent($query)->toJson();
     }
 
     /**

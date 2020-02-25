@@ -130,7 +130,11 @@
                         </small>
                     </div>
 
-                    {!! Form::text('import_doi_cite', 'Ou importer et ajouter par Doi')->placeholder('doi de la citation')->help('<a target="_blank" href="https://citation.crosscite.org/">Vérifier doi</a>') !!}
+                    @component('components.inputs.doi', [
+                        'name' => 'import_doi_cite',
+                        'placeholder' => 'Ou importer et ajouter par Doi',
+                    ])
+                    @endcomponent
 
                     {!! Form::submit('Ajouter') !!}
 
@@ -165,7 +169,11 @@
                         </small>
                     </div>
 
-                    {!! Form::text('import_doi_cite_par', 'Ou importer et ajouter par Doi')->placeholder('doi de la citation')->help('<a target="_blank" href="https://citation.crosscite.org/">Vérifier doi</a>') !!}
+                    @component('components.inputs.doi', [
+                        'name' => 'import_doi_cite_par',
+                        'placeholder' => 'Ou importer et ajouter par Doi',
+                    ])
+                    @endcomponent
 
                     {!! Form::submit('Ajouter') !!}
 
