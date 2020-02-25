@@ -77,10 +77,10 @@ class ArticleController extends Controller
      */
     public function store(ArticleRequest $request)
     {
-        Article::create($request->all());
+        $article = Article::create($request->all());
 
         return redirect()
-            ->route('articles.index')
+            ->route('articles.edit', $article)
             ->with('ok', 'Article ajouté!');
     }
 
@@ -170,7 +170,7 @@ class ArticleController extends Controller
         $article->saveCategories($request->categories);
 
         return redirect()
-            ->route('articles.index')
+            ->back()
             ->with('ok', 'Article modifié!');
     }
 

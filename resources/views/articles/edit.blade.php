@@ -186,7 +186,7 @@
                 {!! Form::open()->post()->route('articles.attach.auteurs', [$article]) !!}
 
                     <div class="form-group">
-                        <label for="inp-auteurs" class="">Ajouter des mots-clés</label>
+                        <label for="inp-auteurs" class="">Ajouter des auteurs</label>
                         <select name="auteurs[]" id="inp-auteurs" multiple required class="form-control">
                             @foreach ($auteursList as $auteursId => $auteurs)
                                 <option

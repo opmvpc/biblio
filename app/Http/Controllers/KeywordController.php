@@ -51,10 +51,10 @@ class KeywordController extends Controller
      */
     public function store(KeywordRequest $request)
     {
-        Keyword::create($request->all());
+        $keyword = Keyword::create($request->all());
 
         return redirect()
-            ->route('keywords.index')
+            ->route('keywords.edit', $keyword)
             ->with('ok', 'Mot-clé ajouté!');
     }
 
@@ -97,7 +97,7 @@ class KeywordController extends Controller
         $keyword->update($request->all());
 
         return redirect()
-            ->route('keywords.index')
+            ->back()
             ->with('ok', 'Mot-clé modifié!');
     }
 

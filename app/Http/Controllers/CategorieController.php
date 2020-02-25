@@ -45,10 +45,10 @@ class CategorieController extends Controller
      */
     public function store(CategorieRequest $request)
     {
-        Categorie::create($request->all());
+        $category = Categorie::create($request->all());
 
         return redirect()
-            ->route('categories.index')
+            ->route('categories.edit', $category)
             ->with('ok', 'Catégorie ajoutée!');
     }
 
@@ -91,7 +91,7 @@ class CategorieController extends Controller
         $category->update($request->all());
 
         return redirect()
-            ->route('categories.index')
+            ->back()
             ->with('ok', 'Catégorie modifiée!');
     }
 

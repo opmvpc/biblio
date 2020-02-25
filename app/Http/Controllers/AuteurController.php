@@ -51,10 +51,10 @@ class AuteurController extends Controller
      */
     public function store(AuteurRequest $request)
     {
-        Auteur::create($request->all());
+        $auteur = Auteur::create($request->all());
 
         return redirect()
-            ->route('auteurs.index')
+            ->route('auteurs.edit', $auteur)
             ->with('ok', 'Auteur ajouté!');
     }
 
@@ -97,7 +97,7 @@ class AuteurController extends Controller
         $auteur->update($request->all());
 
         return redirect()
-            ->route('auteurs.index')
+            ->back()
             ->with('ok', 'Auteur modifié!');
     }
 
