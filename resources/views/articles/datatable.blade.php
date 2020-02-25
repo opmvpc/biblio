@@ -25,26 +25,26 @@
                 'id': 'articles',
                 'url': @json(route('api.articles')),
                 'cols': [
-                    { data: null, name: 'titre', orderable: true, searchable: true,
+                    { data: 'titre', name: 'titre', orderable: false, searchable: true,
                         render: function(data, type, row, meta) {
-                            return data.titre.length > 150 ? data.titre.substring(0,150)+'...' : data.titre;
+                            return data.length > 150 ? data.substring(0,150)+'...' : data;
                         }
                     },
-                    { data: null, name: 'Pertinence', orderable: true, searchable: false,
+                    { data: 'pertinence', name: 'Pertinence', orderable: false, searchable: false,
                         render: function(data, type, row, meta) {
-                            if (!data.pertinence) {
+                            if (!data) {
                                 return '';
                             }
                             let badge = '';
-                            badge += '<span class="badge badge-'+pertinenceDatas[data.pertinence].couleur+'">'
-                            badge += pertinenceDatas[data.pertinence].nom
+                            badge += '<span class="badge badge-'+pertinenceDatas[data].couleur+'">'
+                            badge += pertinenceDatas[data].nom
                             badge += '</span>'
                             return badge;
                         }
                     },
-                    { data: null, name: 'Auteurs', orderable: false, searchable: false,
+                    { data: 'auteurs', name: 'Auteurs', orderable: false, searchable: false,
                         render: function(data, type, row, meta) {
-                            let auteurs = data.auteurs;
+                            const auteurs = data;
                             let auteursString = '';
                             for (let index = 0; index < auteurs.length; index++) {
                                 const element = auteurs[index].nom;
@@ -56,14 +56,14 @@
                             return auteursString.length > 150 ? auteursString.substring(0,150)+'...' : auteursString;
                         }
                     },
-                    { data: null, name: 'date', orderable: false, searchable: false,
+                    { data: 'date', name: 'date', order: 'asc', orderable: false, searchable: false,
                         render: function(data, type, row, meta) {
-                            const niceDate = new Date(data.date).toLocaleDateString();
+                            const niceDate = new Date(data).toLocaleDateString();
                             return niceDate
                         }
                     },
-                    { data: 'cite_count', name:'cite_count' },
-                    { data: 'est_cite_count', name:'est_cite_count' },
+                    { data: 'cite_count', name:'cite_count', orderable: false },
+                    { data: 'est_cite_count', name:'est_cite_count', orderable: false },
                     { data: null, name: 'Actions', orderable: false, searchable: false,
                         render: function(data, type, row, meta) {
                             let actions = '';

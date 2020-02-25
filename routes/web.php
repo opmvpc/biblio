@@ -30,7 +30,7 @@ Route::get('articles/{article}/detach/keyword', 'KeywordController@detachKeyword
 Route::post('articles/{article}/attach/auteur', 'AuteurController@attachAuteur')->name('articles.attach.auteurs');
 Route::get('articles/{article}/detach/auteur', 'AuteurController@detachAuteur')->name('articles.detach.auteur');
 
-Route::get('api/articles', 'ArticleController@api')->name('api.articles');
+Route::get('api/articles/{category?}', 'ArticleController@api')->name('api.articles');
 Route::resource('articles', 'ArticleController');
 Route::resource('categories', 'CategorieController');
 Route::resource('keywords', 'KeywordController');

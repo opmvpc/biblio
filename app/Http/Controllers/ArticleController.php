@@ -13,15 +13,23 @@ use Yajra\DataTables\Facades\DataTables;
 class ArticleController extends Controller
 {
     public function __construct() {
-        $this->middleware('auth')->except(['index', 'show']);
+        $this->middleware('auth')->except(['index', 'show', 'api']);
     }
 
-    public function api(Request $request)
+    public function api(Request $request, string $category = null)
     {
         $query = Article
             ::with(['categories', 'auteurs'])
             ->withCount(['cite', 'estCite'])
             ->orderBy('date', 'Desc')
+            ->when($category && $category != null, function ($query) use ($category) {
+                $query->whereHas('categories', function ($query) use ($category) {
+                    $query->where('slug', 'LIKE', '%'.$category.'%');
+                });
+            })
+            ->when(request()->has('date') && request()->has('date') != null, function ($query) {
+                $query->orderBy('date', request()->has('date'));
+            })
             ->when($request->has('search'), function ($query) {
                 $query->where('titre', 'LIKE', '%'.request()->search['value'].'%')
                 ->orWhere('resume', 'LIKE', '%'.request()->search['value'].'%')
@@ -51,38 +59,38 @@ class ArticleController extends Controller
      */
     public function index(Request $request)
     {
-        $articles = Article
-            ::with('categories')
-            ->orderBy('date', 'Desc')
-            ->when($request->has('categorie') && $request->categorie != null, function ($query) {
-                $query->whereHas('categories', function ($query) {
-                    $query->where('slug', 'LIKE', '%'.request()->categorie.'%');
-                });
-            })
-            ->when($request->has('recherche'), function ($query) {
-                $query->where('titre', 'LIKE', '%'.request()->recherche.'%')
-                ->orWhere('resume', 'LIKE', '%'.request()->recherche.'%')
-                ->orWhere('date', 'LIKE', '%'.request()->recherche.'%')
-                ->orWhere('abstract', 'LIKE', '%'.request()->recherche.'%')
-                ->orWhere('doi', 'LIKE', '%'.request()->recherche.'%')
-                ->orWhere('reference', 'LIKE', '%'.request()->recherche.'%')
-                ->orWhereHas('categories', function ($query) {
-                    $query->where('nom', 'LIKE', '%'.request()->recherche.'%');
-                })
-                ->orWhereHas('keywords', function ($query) {
-                    $query->where('nom', 'LIKE', '%'.request()->recherche.'%');
-                })
-                ->orWhereHas('auteurs', function ($query) {
-                    $query->where('nom', 'LIKE', '%'.request()->recherche.'%');
-                });
-            })
-            ->paginate(10)
-            ->appends($request->query())
-            ;
+        // $articles = Article
+        //     ::with('categories')
+        //     ->orderBy('date', 'Desc')
+        //     ->when($request->has('categorie') && $request->categorie != null, function ($query) {
+        //         $query->whereHas('categories', function ($query) {
+        //             $query->where('slug', 'LIKE', '%'.request()->categorie.'%');
+        //         });
+        //     })
+        //     ->when($request->has('recherche'), function ($query) {
+        //         $query->where('titre', 'LIKE', '%'.request()->recherche.'%')
+        //         ->orWhere('resume', 'LIKE', '%'.request()->recherche.'%')
+        //         ->orWhere('date', 'LIKE', '%'.request()->recherche.'%')
+        //         ->orWhere('abstract', 'LIKE', '%'.request()->recherche.'%')
+        //         ->orWhere('doi', 'LIKE', '%'.request()->recherche.'%')
+        //         ->orWhere('reference', 'LIKE', '%'.request()->recherche.'%')
+        //         ->orWhereHas('categories', function ($query) {
+        //             $query->where('nom', 'LIKE', '%'.request()->recherche.'%');
+        //         })
+        //         ->orWhereHas('keywords', function ($query) {
+        //             $query->where('nom', 'LIKE', '%'.request()->recherche.'%');
+        //         })
+        //         ->orWhereHas('auteurs', function ($query) {
+        //             $query->where('nom', 'LIKE', '%'.request()->recherche.'%');
+        //         });
+        //     })
+        //     ->paginate(10)
+        //     ->appends($request->query())
+        //     ;
 
         $categories = Categorie::pluck('nom', 'slug');
 
-        return view('articles.index', compact('articles', 'categories'));
+        return view('articles.index', compact('categories'));
     }
 
     /**
