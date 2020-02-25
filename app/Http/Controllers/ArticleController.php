@@ -59,38 +59,38 @@ class ArticleController extends Controller
      */
     public function index(Request $request)
     {
-        // $articles = Article
-        //     ::with('categories')
-        //     ->orderBy('date', 'Desc')
-        //     ->when($request->has('categorie') && $request->categorie != null, function ($query) {
-        //         $query->whereHas('categories', function ($query) {
-        //             $query->where('slug', 'LIKE', '%'.request()->categorie.'%');
-        //         });
-        //     })
-        //     ->when($request->has('recherche'), function ($query) {
-        //         $query->where('titre', 'LIKE', '%'.request()->recherche.'%')
-        //         ->orWhere('resume', 'LIKE', '%'.request()->recherche.'%')
-        //         ->orWhere('date', 'LIKE', '%'.request()->recherche.'%')
-        //         ->orWhere('abstract', 'LIKE', '%'.request()->recherche.'%')
-        //         ->orWhere('doi', 'LIKE', '%'.request()->recherche.'%')
-        //         ->orWhere('reference', 'LIKE', '%'.request()->recherche.'%')
-        //         ->orWhereHas('categories', function ($query) {
-        //             $query->where('nom', 'LIKE', '%'.request()->recherche.'%');
-        //         })
-        //         ->orWhereHas('keywords', function ($query) {
-        //             $query->where('nom', 'LIKE', '%'.request()->recherche.'%');
-        //         })
-        //         ->orWhereHas('auteurs', function ($query) {
-        //             $query->where('nom', 'LIKE', '%'.request()->recherche.'%');
-        //         });
-        //     })
-        //     ->paginate(10)
-        //     ->appends($request->query())
-        //     ;
+        $articles = Article
+            ::with('categories')
+            ->orderBy('date', 'Desc')
+            ->when($request->has('categorie') && $request->categorie != null, function ($query) {
+                $query->whereHas('categories', function ($query) {
+                    $query->where('slug', 'LIKE', '%'.request()->categorie.'%');
+                });
+            })
+            ->when($request->has('recherche'), function ($query) {
+                $query->where('titre', 'LIKE', '%'.request()->recherche.'%')
+                ->orWhere('resume', 'LIKE', '%'.request()->recherche.'%')
+                ->orWhere('date', 'LIKE', '%'.request()->recherche.'%')
+                ->orWhere('abstract', 'LIKE', '%'.request()->recherche.'%')
+                ->orWhere('doi', 'LIKE', '%'.request()->recherche.'%')
+                ->orWhere('reference', 'LIKE', '%'.request()->recherche.'%')
+                ->orWhereHas('categories', function ($query) {
+                    $query->where('nom', 'LIKE', '%'.request()->recherche.'%');
+                })
+                ->orWhereHas('keywords', function ($query) {
+                    $query->where('nom', 'LIKE', '%'.request()->recherche.'%');
+                })
+                ->orWhereHas('auteurs', function ($query) {
+                    $query->where('nom', 'LIKE', '%'.request()->recherche.'%');
+                });
+            })
+            ->paginate(10)
+            ->appends($request->query())
+            ;
 
         $categories = Categorie::pluck('nom', 'slug');
 
-        return view('articles.index', compact('categories'));
+        return view('articles.index', compact('articles', 'categories'));
     }
 
     /**
