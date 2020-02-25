@@ -47,9 +47,10 @@ class ImporterDoiService
 
     public function sanatize(string $response): string
     {
-        $explodeResponse = preg_split('/\r\n|\r|\n/', $response, 2);
-        $explodeResponse[0] = "@article{\n";
+        // $explodeResponse = preg_split('/\r\n|\r|\n/', $response, 2);
+        // $explodeResponse[0] = "@article{\n";
 
-        return implode('', $explodeResponse);
+        // return implode('', $explodeResponse);
+        return $response;
     }
 }

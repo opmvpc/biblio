@@ -67,7 +67,7 @@ class ImporterDoiServiceTest extends TestCase
 
         $service = new ImporterDoiService($doi);
 
-        $this->assertSame(static::getBibtexArticle(), $service->getBibtex());
+        $this->assertStringContainsString(static::getBibtexArticle(), $service->getBibtex());
     }
 
     /**
@@ -106,7 +106,7 @@ class ImporterDoiServiceTest extends TestCase
     private static function getBibtexArticle(): string
     {
         return <<<EOT
-@article{
+@article{https://doi.org/10.1016/j.procs.2015.08.452,
   doi = {10.1016/j.procs.2015.08.452},
   url = {https://linkinghub.elsevier.com/retrieve/pii/S1877050915025879},
   author = {Kurihara, Azusa and Sasaki, Akira and Wakita, Ken and Hosobe, Hiroshi},
@@ -116,7 +116,7 @@ class ImporterDoiServiceTest extends TestCase
   pages = {287-296},
   publisher = {Elsevier BV},
   year = {2015}
-}\n
+}
 EOT;
     }
 }

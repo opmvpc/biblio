@@ -26,6 +26,8 @@ class ImporterBibtexService
 
     private function parse(): array
     {
+        $this->bibtex = preg_replace('/\@(\w*)\{((\d|\.|\/)*|http.*),/', '@$1{', $this->bibtex);
+        // dd($this->bibtex);
         $parser = new Parser();
         $listener = new Listener();
         $parser->addListener($listener);
