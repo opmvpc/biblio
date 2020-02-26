@@ -3,14 +3,47 @@
     <table class="table table-striped">
         <thead>
             <tr>
-                <th scope="col">Titre</th>
-                <th scope="col">Type</th>
-                <th scope="col" class="text-center">Pertinence</th>
-                <th scope="col">Auteurs</th>
-                <th scope="col">Date Publication</th>
-                <th scope="col">Citations</th>
-                <th scope="col">Cité par</th>
-                <th scope="col" class="text-center">Actions</th>
+                <th
+                    scope="col"
+                >
+                    Titre
+                </th>
+                <th
+                    scope="col"
+                >
+                    Type
+                </th>
+                <th
+                    scope="col"
+                    class="text-center"
+                >
+                    Pertinence
+                </th>
+                <th
+                    scope="col"
+                >
+                    Auteurs
+                </th>
+                <th
+                    scope="col"
+                >
+                    Date Publication
+                </th>
+                <th
+                    scope="col"
+                >
+                    Citations
+                </th>
+                <th
+                    scope="col"
+                >
+                    Cité par</th>
+                <th
+                    scope="col"
+                    class="text-center"
+                >
+                    Actions
+                </th>
             </tr>
         </thead>
         <tbody>
@@ -42,7 +75,7 @@
                 </tr>
             @empty
                 <tr>
-                    <td colspan="7" class="text-center">Pas encore d'article</td>
+                    <td colspan="8" class="text-center">Pas encore d'article</td>
                 </tr>
             @endforelse
 

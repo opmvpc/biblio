@@ -61,7 +61,13 @@ class ArticleController extends Controller
     {
         $articles = Article
             ::with(['categories', 'auteurs', 'type'])
-            ->orderBy('date', 'Desc')
+            ->withCount(['cite', 'estCite'])
+            ->when(!$request->has('sort'), function ($query) {
+                $query->orderBy('date', 'Desc');
+            })
+            ->when($request->has('sort') && $request->sort != null, function ($query) {
+                $query->orderBy(request()->sort ?? 'date', request()->order ?? 'DESC');
+            })
             ->when($request->has('categorie') && $request->categorie != null, function ($query) {
                 $query->whereHas('categories', function ($query) {
                     $query->where('slug', 'LIKE', '%'.request()->categorie.'%');
