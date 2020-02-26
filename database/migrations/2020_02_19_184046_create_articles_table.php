@@ -28,10 +28,13 @@ class CreateArticlesTable extends Migration
             $table->string('path_article')->nullable();
             $table->enum('pertinence', ['1', '2', '3'])->nullable();
             $table->timestamps();
+            $table->unsignedBigInteger('type_reference_id')->nullable();
 
             $table->index('titre');
             $table->index('reference');
             $table->index('doi');
+
+            $table->foreign('type_reference_id')->references('id')->on('type_references');
         });
     }
 

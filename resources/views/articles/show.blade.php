@@ -68,7 +68,7 @@
                         Date de publication:
                     </dt>
                     <dd class="col-9">
-                        {{ $article->date }}
+                        {{ $article->date->format('m/Y') }}
                     </dd>
 
 

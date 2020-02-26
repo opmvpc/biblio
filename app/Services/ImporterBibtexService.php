@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Article;
 use App\Auteur;
 use App\Keyword;
+use App\TypeReference;
 use Carbon\Carbon;
 use Illuminate\Support\Str;
 use RenanBr\BibTexParser\Parser;
@@ -54,16 +55,20 @@ class ImporterBibtexService
                 'abstract' => $article->get('abstract'),
                 'keywords' => $article->get('keywords'),
                 'doi' => $this->sanatizeText($article->get('doi')),
+                'type' => $article->get('type'),
             ];
         })
         ->each( function ($article) {
-            $nouvelArticle = Article::firstOrCreate(['titre' => $article['titre']], $article);
+            $nouvelArticle = Article::firstOrCreate(['slug' => Str::slug($article['titre'])], $article);
 
             if (request()->has('cite_par')) {
                 $nouvelArticle->attachEstCite(request()->cite_par);
             } if (request()->has('cite')) {
                 $nouvelArticle->attachCite(request()->cite);
             }
+
+            $nouveauType = TypeReference::firstOrCreate(['nom' => $article['type']]);
+            $nouveauType->articles()->save($nouvelArticle);
 
             $this->attachResources($nouvelArticle, $article['keywords'], 'Keyword');
             $this->attachResources($nouvelArticle, $article['auteurs'], 'Auteur');
@@ -83,10 +88,13 @@ class ImporterBibtexService
 
     private function getDate(?int $annee, ?int $mois): Carbon
     {
-        return Carbon::createFromDate($annee ?? 1975, $mois ?? 1, 1);
+        if (! $annee || $annee == -1 ) {
+            $annee = 1975;
+        }
+        return Carbon::createFromDate($annee, $mois ?? 1, 1);
     }
 
-    public function attachResources(Article $article, ?string $attachables, string $attachableType): void
+    private function attachResources(Article $article, ?string $attachables, string $attachableType): void
     {
         collect(explode(',', $attachables))
             ->map( function ($attachable) {
@@ -104,15 +112,36 @@ class ImporterBibtexService
             ;
     }
 
-    public function attachKeyword(Article $article, string $keyword): void
+    private function attachKeyword(Article $article, string $keyword): void
     {
-        $nouveauKeyword = Keyword::firstOrCreate(['nom' => Str::limit($keyword, 295)]);
+        $keyword = Str::limit($keyword, 295);
+        $nouveauKeyword = Keyword::firstOrCreate(['slug' =>  Str::slug($keyword)], ['nom' => $keyword]);
         $article->attachKeyword($nouveauKeyword->id);
     }
 
-    public function attachAuteur(Article $article, string $auteur): void
+    private function attachAuteur(Article $article, string $auteur): void
     {
-        $nouveauKeyword = Auteur::firstOrCreate(['nom' => Str::limit($auteur, 295)]);
-        $article->attachAuteur($nouveauKeyword->id);
+        $auteur = $this->convertBadChars($auteur);
+        $auteur = Str::limit($auteur, 295);
+        $auteur = Auteur::firstOrCreate(['slug' => Str::slug($auteur)], ['nom' => $auteur]);
+        $article->attachAuteur($auteur->id);
+    }
+    private function convertBadChars(string $auteur)
+    {
+        $auteur = preg_replace('/\\\'a/', 'á', $auteur);
+        $auteur = preg_replace('/\\á/', 'á', $auteur);
+        $auteur = preg_replace('/(\\\'i|\\\'\\\i)/', 'í', $auteur);
+        $auteur = preg_replace('/(\\í|\\\\\í)/', 'í', $auteur);
+        $auteur = preg_replace('/\\\'e/', 'é', $auteur);
+        $auteur = preg_replace('/\\\´e/', 'é', $auteur);
+        $auteur = preg_replace('/\\\`e/', 'è', $auteur);
+        $auteur = preg_replace('/\\é/', 'é', $auteur);
+        $auteur = preg_replace('/\\è/', 'è', $auteur);
+        $auteur = preg_replace('/\\v/', '', $auteur);
+        $auteur = preg_replace('/\\\^/', '', $auteur);
+        $auteur = preg_replace('/\\"/', '', $auteur);
+        $auteur = str_replace('\\', '', $auteur);
+
+        return $auteur;
     }
 }

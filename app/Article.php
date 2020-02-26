@@ -44,6 +44,12 @@ class Article extends Model
             ->orderBy('date', 'Desc');
     }
 
+
+    public function type()
+    {
+        return $this->belongsTo(TypeReference::class);
+    }
+
     public function categories()
     {
         return $this->BelongsToMany(Categorie::class);
@@ -101,12 +107,12 @@ class Article extends Model
 
     public function attachKeyword(int $keywordId): void
     {
-        $this->keywords()->attach($keywordId);
+        $this->keywords()->syncWithoutDetaching([$keywordId]);
     }
 
     public function attachKeywords(array $keywordIds): void
     {
-        $this->keywords()->attach($keywordIds);
+        $this->keywords()->syncWithoutDetaching($keywordIds);
     }
 
     public function detachKeyword(int $keywordId): void
@@ -121,12 +127,12 @@ class Article extends Model
 
     public function attachAuteur(int $auteurId): void
     {
-        $this->auteurs()->attach($auteurId);
+        $this->auteurs()->syncWithoutDetaching([$auteurId]);
     }
 
     public function attachAuteurs(array $auteurIds): void
     {
-        $this->auteurs()->attach($auteurIds);
+        $this->auteurs()->syncWithoutDetaching($auteurIds);
     }
 
     public function detachAuteur(int $auteurId): void
