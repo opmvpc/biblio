@@ -21,6 +21,11 @@
 
                     {!! Form::text('titre', 'Titre') !!}
 
+                    @component('components.inputs.type_reference', [
+                        'selected' => $article->type_reference_id,
+                    ])
+                    @endcomponent
+
                     @component('components.inputs.pertinence', [
                         'pertinences' => $pertinences,
                         'selected' => $article->pertinence,

@@ -60,7 +60,7 @@ class ArticleController extends Controller
     public function index(Request $request)
     {
         $articles = Article
-            ::with('categories')
+            ::with(['categories', 'auteurs', 'type'])
             ->orderBy('date', 'Desc')
             ->when($request->has('categorie') && $request->categorie != null, function ($query) {
                 $query->whereHas('categories', function ($query) {
@@ -78,6 +78,9 @@ class ArticleController extends Controller
                     $query->where('nom', 'LIKE', '%'.request()->recherche.'%');
                 })
                 ->orWhereHas('keywords', function ($query) {
+                    $query->where('nom', 'LIKE', '%'.request()->recherche.'%');
+                })
+                ->orWhereHas('type', function ($query) {
                     $query->where('nom', 'LIKE', '%'.request()->recherche.'%');
                 })
                 ->orWhereHas('auteurs', function ($query) {

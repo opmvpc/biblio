@@ -11,6 +11,9 @@
 
                     {!! Form::text('titre', 'Titre') !!}
 
+                    @component('components.inputs.type_reference')
+                    @endcomponent
+
                     @component('components.inputs.pertinence', [
                         'pertinences' => $pertinences,
                     ])

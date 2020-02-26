@@ -19,6 +19,13 @@
             <div class="card-body">
                 <dl class="row">
                     <dt class="col-3 text-right">
+                        Type:
+                    </dt>
+                    <dd class="col-9">
+                        {{ $article->type->nom }}
+                    </dd>
+
+                    <dt class="col-3 text-right">
                         Auteurs:
                     </dt>
                     <dd class="col-9">

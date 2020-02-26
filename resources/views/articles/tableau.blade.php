@@ -4,6 +4,7 @@
         <thead>
             <tr>
                 <th scope="col">Titre</th>
+                <th scope="col">Type</th>
                 <th scope="col" class="text-center">Pertinence</th>
                 <th scope="col">Auteurs</th>
                 <th scope="col">Date Publication</th>
@@ -17,6 +18,7 @@
             @forelse ($articles as $article)
                 <tr>
                     <td>{{ Str::limit($article->titre, 100) }}</td>
+                    <td>{{ $article->type->nom }}</td>
                     <td class="text-center">
                         <span class="badge badge-{{ $article->getPertinenceData('couleur') }}">
                             {{ $article->getPertinenceData('nom') }}

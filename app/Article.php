@@ -24,6 +24,7 @@ class Article extends Model
         'path_fiche_lecture',
         'path_article',
         'pertinence',
+        'type_reference_id',
     ];
 
     protected $dates = [
@@ -47,7 +48,7 @@ class Article extends Model
 
     public function type()
     {
-        return $this->belongsTo(TypeReference::class);
+        return $this->belongsTo(TypeReference::class, 'type_reference_id', 'id');
     }
 
     public function categories()
