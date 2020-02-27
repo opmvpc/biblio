@@ -51,7 +51,7 @@ class ImporterBibtexService
                 'reference' => $this->sanatizeText($article->get('citation-key')),
                 'date' => $this->getDate(intval($article->get('year')), intval($article->get('month'))),
                 'url' => $this->sanatizeText($article->get('url')),
-                'bibtex' => $article->get('"_original'),
+                'bibtex' => $article->get('_original'),
                 'abstract' => $article->get('abstract'),
                 'keywords' => $article->get('keywords'),
                 'doi' => $this->sanatizeText($article->get('doi')),
