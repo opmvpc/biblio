@@ -65,7 +65,7 @@ class Article extends Model
 
     public function attachCite(array $citeIds): void
     {
-        $this->cite()->attach($citeIds);
+        $this->cite()->syncWithoutDetaching($citeIds);
     }
 
     public function detachCite(int $citeId): void
@@ -75,7 +75,7 @@ class Article extends Model
 
     public function attachEstCite(array $citeIds): void
     {
-        $this->estCite()->attach($citeIds);
+        $this->estCite()->syncWithoutDetaching($citeIds);
     }
 
     public function detachEstCite(int $citeId): void
