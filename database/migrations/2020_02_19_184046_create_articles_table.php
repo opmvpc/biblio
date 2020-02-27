@@ -21,7 +21,7 @@ class CreateArticlesTable extends Migration
             $table->date('date');
             $table->text('resume')->nullable();
             $table->text('bibtex')->nullable();
-            $table->string('slug', 305)->nullable();
+            $table->string('url', 305)->nullable();
             $table->text('abstract')->nullable();
             $table->string('doi')->nullable();
             $table->string('path_fiche_lecture')->nullable();
