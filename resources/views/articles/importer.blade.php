@@ -31,6 +31,9 @@
                                     >{{ $article->titre .' | '. $article->reference }}</option>
                                 @endforeach
                             </select>
+                            <small class="form-text text-muted">
+                                Sélectionnez des articles qui sont des citations des articles importés
+                            </small>
                         </div>
 
                         <div class="form-group">
@@ -43,6 +46,9 @@
                                     >{{ $article->titre .' | '. $article->reference }}</option>
                                 @endforeach
                             </select>
+                            <small class="form-text text-muted">
+                                Sélectionnez des articles qui citent les articles importés
+                            </small>
                         </div>
 
                         {!! Form::submit('Importer') !!}

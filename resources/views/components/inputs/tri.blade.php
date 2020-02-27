@@ -5,7 +5,7 @@
         'pertinence' => 'Pertinence',
         'date' => 'Date',
         'cite_count' => 'Citations',
-        'est_cite_count' => 'Cité par',
+        'est_cite_count' => 'Références',
     ];
 @endphp
 
@@ -34,7 +34,7 @@
         required
         onchange="document.querySelector('#tri').submit()"
     >
-        @foreach (['DESC' => 'Descendant', 'ASC' => 'Ascendant'] as $id => $option)
+        @foreach (['DESC' => 'Desc', 'ASC' => 'Asc'] as $id => $option)
             <option
                 value="{{ $id }}"
                 {{ $id == old('order', request()->query('order') ?? '') ? 'selected' : '' }}

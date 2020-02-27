@@ -39,7 +39,7 @@ class ArticleRequest extends FormRequest
 
         return [
             'titre' => $rules,
-            'url' => 'required|max:150|string',
+            'url' => 'required|max:300|string',
             'date' => 'required|max:150|date',
         ];
     }

@@ -132,6 +132,7 @@ class ImporterBibtexService
         $auteur = preg_replace('/\\á/', 'á', $auteur);
         $auteur = preg_replace('/(\\\'i|\\\'\\\i)/', 'í', $auteur);
         $auteur = preg_replace('/(\\í|\\\\\í)/', 'í', $auteur);
+        $auteur = preg_replace('/\^i/', 'i', $auteur);
         $auteur = preg_replace('/\\\'e/', 'é', $auteur);
         $auteur = preg_replace('/\\\´e/', 'é', $auteur);
         $auteur = preg_replace('/\\\`e/', 'è', $auteur);

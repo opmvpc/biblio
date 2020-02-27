@@ -37,7 +37,7 @@
                 <th
                     scope="col"
                 >
-                    Cité par</th>
+                    Références</th>
                 <th
                     scope="col"
                     class="text-center"

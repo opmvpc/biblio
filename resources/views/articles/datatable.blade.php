@@ -2,11 +2,12 @@
     'id' => 'articles',
     'thead' => [
         'Titre',
+        'Type',
         'Pertinence',
-        'Auteurs',
         'Date Publication',
         'Citations',
         'Cité par',
+        'Auteurs',
     ]
 ])
 @endcomponent
@@ -23,14 +24,20 @@
         window.tables.push(
             {
                 'id': 'articles',
+                'order': [[ 3, "desc" ]],
                 'url': @json(route('api.articles')),
                 'cols': [
-                    { data: 'titre', name: 'titre', orderable: false, searchable: true,
+                    { data: 'titre', name: 'titre', orderable: true, searchable: true,
                         render: function(data, type, row, meta) {
                             return data.length > 150 ? data.substring(0,150)+'...' : data;
                         }
                     },
-                    { data: 'pertinence', name: 'Pertinence', orderable: false, searchable: false,
+                    { data: 'type', name:'type.nom', orderable: true, searchable: false,
+                        render: function(data, type, row, meta) {
+                            return data.nom;
+                        }
+                    },
+                    { data: 'pertinence', name: 'Pertinence', orderable: true, searchable: false,
                         render: function(data, type, row, meta) {
                             if (!data) {
                                 return '';
@@ -42,7 +49,15 @@
                             return badge;
                         }
                     },
-                    { data: 'auteurs', name: 'Auteurs', orderable: false, searchable: false,
+                    { data: 'date', name: 'date', order: 'asc', orderable: true, searchable: false,
+                        render: function(data, type, row, meta) {
+                            const niceDate = new Date(data).toLocaleDateString();
+                            return niceDate
+                        }
+                    },
+                    { data: 'cite_count', name:'cite_count', orderable: true, searchable: false },
+                    { data: 'est_cite_count', name:'est_cite_count', orderable: true, searchable: false },
+                    { data: 'auteurs', name: 'auteurs.nom', orderable: false, searchable: false,
                         render: function(data, type, row, meta) {
                             const auteurs = data;
                             let auteursString = '';
@@ -56,14 +71,6 @@
                             return auteursString.length > 150 ? auteursString.substring(0,150)+'...' : auteursString;
                         }
                     },
-                    { data: 'date', name: 'date', order: 'asc', orderable: false, searchable: false,
-                        render: function(data, type, row, meta) {
-                            const niceDate = new Date(data).toLocaleDateString();
-                            return niceDate
-                        }
-                    },
-                    { data: 'cite_count', name:'cite_count', orderable: false },
-                    { data: 'est_cite_count', name:'est_cite_count', orderable: false },
                     { data: null, name: 'Actions', orderable: false, searchable: false,
                         render: function(data, type, row, meta) {
                             let actions = '';

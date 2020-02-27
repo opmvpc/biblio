@@ -19,17 +19,16 @@ class ArticleController extends Controller
     public function api(Request $request, string $category = null)
     {
         $query = Article
-            ::with(['categories', 'auteurs'])
+            ::with(['categories', 'auteurs', 'type'])
             ->withCount(['cite', 'estCite'])
-            ->orderBy('date', 'Desc')
             ->when($category && $category != null, function ($query) use ($category) {
                 $query->whereHas('categories', function ($query) use ($category) {
                     $query->where('slug', 'LIKE', '%'.$category.'%');
                 });
             })
-            ->when(request()->has('date') && request()->has('date') != null, function ($query) {
-                $query->orderBy('date', request()->has('date'));
-            })
+            // ->when(request()->has('date') && request()->has('date') != null, function ($query) {
+            //     $query->orderBy('date', request()->has('date'));
+            // })
             ->when($request->has('search'), function ($query) {
                 $query->where('titre', 'LIKE', '%'.request()->search['value'].'%')
                 ->orWhere('resume', 'LIKE', '%'.request()->search['value'].'%')
@@ -47,6 +46,7 @@ class ArticleController extends Controller
                     $query->where('nom', 'LIKE', '%'.request()->search['value'].'%');
                 });
             })
+            // ->orderBy('date', 'Desc')
             ;
 
         return DataTables::eloquent($query)->toJson();
