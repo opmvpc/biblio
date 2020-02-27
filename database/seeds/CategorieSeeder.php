@@ -13,7 +13,7 @@ class CategorieSeeder extends Seeder
     public function run()
     {
         Categorie::create([
-            'nom' => 'Learning/Teaching',
+            'nom' => 'Pédagogie',
         ]);
 
         Categorie::create([
@@ -21,11 +21,15 @@ class CategorieSeeder extends Seeder
         ]);
 
         Categorie::create([
-            'nom' => 'Meta Modeling',
+            'nom' => 'Modularité',
         ]);
 
         Categorie::create([
-            'nom' => 'Turtle Graphics',
+            'nom' => 'Représentation graphique',
+        ]);
+
+        Categorie::create([
+            'nom' => 'Paradigme',
         ]);
     }
 }
