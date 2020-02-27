@@ -119,7 +119,7 @@
         </div>
 
         <div class="card mb-4">
-            <div class="card-header">Citations</div>
+            <div class="card-header">Références</div>
 
             <div class="card-body">
                 @component('articles.tableau', ['articles' => $article->cite])
@@ -128,7 +128,7 @@
         </div>
 
         <div class="card mb-4">
-            <div class="card-header">Cité par</div>
+            <div class="card-header">Citations</div>
 
             <div class="card-body">
                 @component('articles.tableau', ['articles' => $article->estCite])

@@ -32,12 +32,12 @@
                 <th
                     scope="col"
                 >
-                    Citations
+                    Références
                 </th>
                 <th
                     scope="col"
                 >
-                    Références</th>
+                    Citations</th>
                 <th
                     scope="col"
                     class="text-center"

@@ -4,8 +4,8 @@
         'type_reference_id' => 'Type',
         'pertinence' => 'Pertinence',
         'date' => 'Date',
-        'cite_count' => 'Citations',
-        'est_cite_count' => 'Références',
+        'cite_count' => 'Références',
+        'est_cite_count' => 'Citations',
     ];
 @endphp
 

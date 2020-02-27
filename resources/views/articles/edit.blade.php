@@ -109,7 +109,7 @@
         </div>
 
         <div class="card mb-4">
-            <div class="card-header">Citations</div>
+            <div class="card-header">Références</div>
 
             <div class="card-body">
                 @component('articles.tableau', [
@@ -122,7 +122,7 @@
                 {!! Form::open()->post()->route('articles.attach.cite', [$article]) !!}
 
                     <div class="form-group">
-                        <label for="inp-cite" class="">Ajouter des Citations</label>
+                        <label for="inp-cite" class="">Ajouter des Références</label>
                         <select name="cite[]" id="inp-cite" multiple class="form-control">
                             @foreach ($articlesCite as $articleCite)
                                 <option
@@ -148,7 +148,7 @@
         </div>
 
         <div class="card mb-4">
-            <div class="card-header">Références</div>
+            <div class="card-header">Citations</div>
 
             <div class="card-body">
                 @component('articles.tableau', [
@@ -161,7 +161,7 @@
                 {!! Form::open()->post()->route('articles.attach.estCitePar', [$article]) !!}
 
                     <div class="form-group">
-                        <label for="inp-cite_par" class="">Ajouter des Références</label>
+                        <label for="inp-cite_par" class="">Ajouter des Citations</label>
                         <select name="cite_par[]" id="inp-cite_par" multiple class="form-control">
                             @foreach ($articlesEstCite as $articleCitePar)
                                 <option
