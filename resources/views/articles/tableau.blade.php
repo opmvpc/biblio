@@ -62,8 +62,8 @@
                     <td>{{ $article->cite()->count() }}</td>
                     <td>{{ $article->estCite()->count() }}</td>
                     <td style="width: 10px;">
-                        <div class="d-flex justify-content-between">
-                        <a href="{{ route('articles.show', $article) }}" class="btn btn-link">voir</a>
+                        <div class="d-flex flex-column justify-content-center">
+                            <a href="{{ route('articles.show', $article) }}" class="btn btn-link">voir</a>
                             @auth
                                 <a href="{{ route('articles.edit', $article) }}" class="btn btn-link">modifier</a>
                                 @isset($detachable)
@@ -84,7 +84,7 @@
 </div>
 
 @if(method_exists($articles, 'links'))
-    <div class="d-flex justify-content-center">
+    <div class="d-flex justify-content-center mt-3" style="overflow-x: auto;">
         {!! $articles->links() !!}
     </div>
 @endif

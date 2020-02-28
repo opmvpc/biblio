@@ -15,7 +15,7 @@
 
     <select name="sort"
         id="inp-sort"
-        class="form-control mr-3"
+        class="form-control mb-2 mb-sm-0 mr-sm-3"
         required
         onchange="document.querySelector('#tri').submit()"
     >

@@ -47,7 +47,7 @@
                     </table>
                 </div>
 
-                <div class="d-flex justify-content-center">
+                <div class="d-flex justify-content-center mt-3" style="overflow-x: auto;">
                     {!! $users->links() !!}
                 </div>
             </div>

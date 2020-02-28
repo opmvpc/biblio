@@ -37,7 +37,7 @@
 </div>
 
 @if(method_exists($keywords, 'links'))
-    <div class="d-flex justify-content-center">
+    <div class="d-flex justify-content-center mt-3" style="overflow-x: auto;">
         {!! $keywords->links() !!}
     </div>
 @endif

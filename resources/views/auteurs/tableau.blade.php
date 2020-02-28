@@ -37,7 +37,9 @@
 </div>
 
 @if(method_exists($auteurs, 'links'))
-    <div class="d-flex justify-content-center">
-        {!! $auteurs->links() !!}
+    <div class="d-flex justify-content-lg-center mt-3" style="overflow-x: auto;">
+        <div style="">
+            {!! $auteurs->links() !!}
+        </div>
     </div>
 @endif
