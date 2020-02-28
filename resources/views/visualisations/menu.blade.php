@@ -9,6 +9,6 @@
         class="btn btn-xs mr-4 mx-xl-2 {{ request()->is('visualisations/auteurs') ? 'btn-dark' : 'btn-light'}}"
         href="{{ route('visualisations.auteurs') }}"
     >
-        Auteurs et articles
+        Articles par auteurs
     </a>
 </div>

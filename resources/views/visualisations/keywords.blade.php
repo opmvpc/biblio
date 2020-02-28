@@ -19,7 +19,6 @@
         </div>
     </div>
 </div>
-{{-- @dump($articles) --}}
 @endsection
 
 @push('scripts')
@@ -105,7 +104,9 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 
     myChart.on('click', 'series', function (params) {
-        console.log(params);
+        if (params.dataType == "edge") {
+            return;
+        }
 
         window.open('/articles/'+ params.data.dbId, '_blank');
     });

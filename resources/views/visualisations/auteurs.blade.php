@@ -6,7 +6,7 @@
         @include('visualisations.menu')
         <div class="col-12">
             <div class="card">
-                <div class="card-header">Citations entre articles</div>
+                <div class="card-header">Articles par auteurs</div>
 
                 <div class="card-body d-flex justify-content-center">
                     <div
@@ -19,7 +19,6 @@
         </div>
     </div>
 </div>
-{{-- @dump($articles) --}}
 @endsection
 
 @push('scripts')

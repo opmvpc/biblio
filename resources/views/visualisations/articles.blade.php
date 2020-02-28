@@ -19,7 +19,6 @@
         </div>
     </div>
 </div>
-{{-- @dump($articles) --}}
 @endsection
 
 @push('scripts')
