@@ -27,14 +27,12 @@
 document.addEventListener("DOMContentLoaded", function() {
     var myChart = echarts.init(document.getElementById('graph'));
     let categories = [
-        {name: 'Aucune', itemStyle: {color: '#a0aec0'}},
-        {name: 'Faible', itemStyle: {color: '#fc8181'}},
-        {name: 'Moyenne', itemStyle: {color: '#63b3ed'}},
-        {name: 'Haute', itemStyle: {color: '#68d391'}},
+        {name: 'Articles', itemStyle: {color: '#fc8181'}},
+        {name: 'Auteurs', itemStyle: {color: '#63b3ed'}},
     ];
 
     myChart.showLoading();
-    $.getJSON('/visualisations/api/articles', function (json) {
+    $.getJSON('/visualisations/api/auteurs', function (json) {
         myChart.hideLoading();
         myChart.setOption(option = {
             title: {
@@ -62,8 +60,8 @@ document.addEventListener("DOMContentLoaded", function() {
                             id: node.slug,
                             name: node.titre,
                             dbId: node.id,
-                            category: node.pertinence ? categories[node.pertinence].name : categories[0].name,
-                            symbolSize: node.est_cite_count ? (node.est_cite_count * 6) + 20 : 20,
+                            category: node.nodeType,
+                            symbolSize: node.articles_count ? (node.articles_count * 10) + 10 : 10,
                         };
                     }),
                     links: json.edges.map(function (edge) {
@@ -105,9 +103,11 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 
     myChart.on('click', 'series', function (params) {
-        console.log(params);
+        if (params.dataType == "edge") {
+            return;
+        }
 
-        window.open('/articles/'+ params.data.dbId, '_blank');
+        window.open('/'+ params.data.category.toLowerCase() +'/'+ params.data.dbId, '_blank');
     });
 });
 </script>
