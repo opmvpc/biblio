@@ -94,8 +94,8 @@ document.addEventListener("DOMContentLoaded", function() {
                     force: {
                         initLayout: 'circular',
                         gravity: 0.1,
-                        repulsion: 100,
-                        edgeLength: 150,
+                        repulsion: 200,
+                        edgeLength: 200,
                         layoutAnimation: true,
                     }
                 }

@@ -64,6 +64,7 @@ document.addEventListener("DOMContentLoaded", function() {
                             x: null,
                             y: null,
                             id: node.slug,
+                            nodeType: node.nodeType,
                             name: node.nodeType == "Categories" ? node.nom : node.titre,
                             dbId: node.id,
                             category: node.nodeType == "Categories" ? categories[node.id].name : categories[0].name,
@@ -99,8 +100,8 @@ document.addEventListener("DOMContentLoaded", function() {
                     force: {
                         initLayout: 'circular',
                         gravity: 0.1,
-                        repulsion: 100,
-                        edgeLength: 150,
+                        repulsion: 200,
+                        edgeLength: 300,
                         layoutAnimation: true,
                     }
                 }
@@ -113,7 +114,16 @@ document.addEventListener("DOMContentLoaded", function() {
             return;
         }
 
-        window.open('/'+ params.data.category.toLowerCase() +'/'+ params.data.dbId, '_blank');
+        console.log(params.data.nodeType);
+
+        let url = '/';
+        url += params.data.nodeType == "Articles" ? 'articles' : 'categories';
+        url += '/';
+        url += params.data.dbId;
+
+        console.log(url);
+
+        window.open(url, '_blank');
     });
 });
 </script>
