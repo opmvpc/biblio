@@ -1,54 +1,95 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
+<div class="container h-100">
     <div class="row justify-content-center">
         <div class="col-12">
             <div class="card">
-                <div class="card-header">Visualisations</div>
+                <div class="card-header">Citations entre articles</div>
 
-                <div class="card-body">
-                    <div id="vis"></div>
+                <div class="card-body d-flex justify-content-center">
+                    <div
+                        id="graph"
+                        class="p-3 w-100 flex-grow"
+                        style="height:60vh;"
+                    ></div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-@dump($keywords)
+{{-- @dump($articles) --}}
 @endsection
 
 @push('scripts')
-<script src="https://cdn.jsdelivr.net/npm/vega@5.9.1"></script>
-<script src="https://cdn.jsdelivr.net/npm/vega-lite@4.4.0"></script>
-<script src="https://cdn.jsdelivr.net/npm/vega-embed@6.2.2"></script>
-
 <script type="text/javascript">
-    document.addEventListener("DOMContentLoaded", () => {
-        const datas = @json($keywords);
-        console.log(datas);
-        var yourVlSpec = {
-            $schema: 'https://vega.github.io/schema/vega-lite/v2.0.json',
-            description: 'A simple bar chart with embedded data.',
-            data: {
-                values: [
-                    {a: 'A', b: 28},
-                    {a: 'B', b: 55},
-                    {a: 'C', b: 43},
-                    {a: 'D', b: 91},
-                    {a: 'E', b: 81},
-                    {a: 'F', b: 53},
-                    {a: 'G', b: 19},
-                    {a: 'H', b: 87},
-                    {a: 'I', b: 52}
-                ]
+document.addEventListener("DOMContentLoaded", function() {
+    var pertinences = [
+        'red',
+        'blue',
+        'green'
+    ];
+    var myChart = echarts.init(document.getElementById('graph'));
+    myChart.showLoading();
+    $.getJSON('/visualisations/api/articles', function (json) {
+        myChart.hideLoading();
+        myChart.setOption(option = {
+            title: {
+                text: 'Citations'
             },
-            mark: 'bar',
-            encoding: {
-                x: {field: 'a', type: 'ordinal'},
-                y: {field: 'b', type: 'quantitative'}
-            }
-        };
-        vegaEmbed('#vis', yourVlSpec);
+            animationDurationUpdate: 1500,
+            animationEasingUpdate: 'quinticInOut',
+            series : [
+                {
+                    type: 'graph',
+                    layout: 'force',
+                    progressiveThreshold: 700,
+                    data: json.nodes.map(function (node) {
+                        return {
+                            id: node.slug,
+                            name: node.titre,
+                            dbId: node.id,
+                            symbolSize: node.est_cite_count ? (node.est_cite_count * 4) + 10 : 10,
+                            itemStyle: {
+                                color: node.pertinence ? pertinences[node.pertinence] : 'grey'
+                            }
+                        };
+                    }),
+                    edges: json.edges.map(function (edge) {
+                        return {
+                            source: edge.source,
+                            target: edge.target
+                        };
+                    }),
+                    links: {
+                        symbol: 'arrow',
+                    },
+                    emphasis: {
+                        label: {
+                            position: 'right',
+                            show: true
+                        }
+                    },
+                    roam: true,
+                    focusNodeAdjacency: true,
+                    lineStyle: {
+                        width: 0.5,
+                        curveness: 0.3,
+                        opacity: 0.7
+                    },
+                    draggable: true,
+                    force: {
+                        initLayout: 'circular',
+                        gravity: 0.1,
+                        repulsion: 100,
+                        edgeLength: 60,
+                        layoutAnimation: true,
+                    }
+                }
+            ]
+        }, true);
     });
+});
+
 </script>
 @endpush

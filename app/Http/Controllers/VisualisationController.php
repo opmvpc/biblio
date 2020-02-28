@@ -45,14 +45,15 @@ class VisualisationController extends Controller
 
     public function dataArticle()
     {
-        $articles = Article
+        $nodes = Article
             ::withCount(['estCite'])
-            ->select('titre as name','id as index')
+            // ->dd()
             ->get()
             ->each(function($link){
                 return $link->group = 1;
             })
             ;
+
         $links = DB::table('cite')
             ->select('citeur_id AS source','cite_id AS target')
             ->get()
@@ -60,9 +61,20 @@ class VisualisationController extends Controller
                 return $link->value = 1;
             })
             ;
+
+        $edges = DB::table('cite')
+            ->join('articles AS citation', 'citation.id', '=', 'citeur_id')
+            ->join('articles AS reference', 'reference.id', '=', 'cite_id')
+            ->select('citation.slug AS source','reference.slug AS target')
+            ->get()
+            ->each(function($link){
+                return $link->value = 1;
+            })
+            ;
+
         $response = [
-            'nodes' => $articles,
-            'links' => $links,
+            'nodes' => $nodes,
+            'edges' => $edges,
         ];
         return response()->json($response,200);
     }

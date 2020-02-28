@@ -28,6 +28,8 @@
         "datatables.net": "^1.10.19",
         "datatables.net-bs4": "^1.10.19",
         "dropzone": "^5.7.0",
+        "echarts": "^4.6.0",
+        "select2": "^4.0.13",
         "toastr": "^2.1.4"
     }
 }

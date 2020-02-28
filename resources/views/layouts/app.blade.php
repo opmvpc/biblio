@@ -20,18 +20,18 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body>
-    <div id="app">
+    <div id="app" class="d-flex flex-column" style="min-height: 100vh;">
         @include('layouts.nav')
 
-        <main class="py-4 container px-3">
+        <main class="py-4 container px-3" style="flex-grow: 1;">
             @yield('content')
         </main>
     </div>
 
+    @stack('scripts')
     <script type="text/javascript">
         window.ok = "{{ session('ok') }}";
         window.error = "{{ $errors->first() }}";
     </script>
-    @stack('scripts')
 </body>
 </html>

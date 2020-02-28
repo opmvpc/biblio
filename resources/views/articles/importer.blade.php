@@ -61,3 +61,14 @@
     </div>
 </div>
 @endsection
+
+@push('scripts')
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            $('#inp-cite').select2({
+                placeholder: 'Recherchez des articles',
+                language: "fr"
+            });
+        });
+    </script>
+@endpush
