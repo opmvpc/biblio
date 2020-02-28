@@ -40,7 +40,8 @@ Route::resource('users', 'UserController')->only(['index', 'create', 'store']);
 Route::get('visualisations', 'VisualisationController@index')->name('visualisations.index');
 Route::get('visualisations/articles', 'VisualisationController@articles')->name('visualisations.articles');
 Route::get('visualisations/api/articles', 'VisualisationController@dataArticles')->name('visualisations.api.articles');
-Route::get('visualisations/keywords', 'VisualisationController@keywords')->name('visualisations.keywords');
+Route::get('visualisations/categories', 'VisualisationController@categories')->name('visualisations.categories');
+Route::get('visualisations/api/categories', 'VisualisationController@dataCategories')->name('visualisations.api.categories');
 Route::get('visualisations/auteurs', 'VisualisationController@auteurs')->name('visualisations.auteurs');
 Route::get('visualisations/api/auteurs', 'VisualisationController@dataAuteurs')->name('visualisations.api.auteurs');
 

@@ -11,4 +11,10 @@
     >
         Articles par auteurs
     </a>
+    <a
+        class="btn btn-xs mr-4 mx-xl-2 {{ request()->is('visualisations/categories') ? 'btn-dark' : 'btn-light'}}"
+        href="{{ route('visualisations.categories') }}"
+    >
+        Articles par categories
+    </a>
 </div>
