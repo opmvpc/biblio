@@ -15,7 +15,7 @@
                     <td>{{ $auteur->nom }}</td>
                     <td>{{ $auteur->articles_count }}</td>
                     <td style="width: 10px;">
-                        <div class="d-flex justify-content-between">
+                        <div class="d-flex flex-column justify-content-center">
                             <a href="{{ route('auteurs.show', $auteur) }}" class="btn btn-link">voir</a>
                             @auth
                                 <a href="{{ route('auteurs.edit', $auteur) }}" class="btn btn-link">modifier</a>

@@ -15,7 +15,7 @@
                     <td>{{ $keyword->nom }}</td>
                     <td>{{ $keyword->articles_count }}</td>
                     <td style="width: 10px;">
-                        <div class="d-flex justify-content-between">
+                        <div class="d-flex flex-column justify-content-center">
                             <a href="{{ route('keywords.show', $keyword) }}" class="btn btn-link">voir</a>
                             @auth
                                 <a href="{{ route('keywords.edit', $keyword) }}" class="btn btn-link">modifier</a>
