@@ -125,6 +125,7 @@ class ImporterBibtexService
     {
         $auteur = $this->convertBadChars($auteur);
         $auteur = Str::limit($auteur, 295);
+        $auteur = mb_convert_encoding($auteur, 'utf-8');
         $auteur = Auteur::firstOrCreate(['slug' => Str::slug($auteur)], ['nom' => $auteur]);
         $article->attachAuteur($auteur->id);
     }
