@@ -23,7 +23,7 @@ class CitationController extends Controller
                 $validator = Validator::make($request->only('doi'), []);
                 $validator->errors()->add('import_doi_cite', 'Le doi est invalide');
                 return redirect()
-                    ->back()
+                    ->to(route('articles.edit', $article) .'#inp-import_doi_cite')
                     ->withInput()
                     ->withErrors($validator);
             }
@@ -32,8 +32,8 @@ class CitationController extends Controller
         }
 
         return redirect()
-            ->back()
-            ->with('ok', 'Citations attachées!');
+            ->to(route('articles.edit', $article) .'#form-references')
+            ->with('ok', 'Références attachées!');
     }
 
     public function attachEstCitePar(Request $request, Article $article)
@@ -46,7 +46,7 @@ class CitationController extends Controller
                 $validator = Validator::make($request->only('doi'), []);
                 $validator->errors()->add('import_doi_cite_par', 'Le doi est invalide');
                 return redirect()
-                    ->back()
+                    ->to(route('articles.edit', $article) .'#inp-import_doi_cite_par')
                     ->withInput()
                     ->withErrors($validator);
             }
@@ -55,7 +55,7 @@ class CitationController extends Controller
         }
 
         return redirect()
-            ->back()
+            ->to(route('articles.edit', $article) .'#form-citations')
             ->with('ok', 'Citations attachées!');
     }
 
@@ -64,8 +64,8 @@ class CitationController extends Controller
         $article->detachCite($request->query('detachable'));
 
         return redirect()
-            ->back()
-            ->with('ok', 'Citations détachée!');
+            ->to(route('articles.edit', $article) .'#form-references')
+            ->with('ok', 'Référence détachée!');
     }
 
     public function detachEstCitePar(Request $request, Article $article)
@@ -73,7 +73,7 @@ class CitationController extends Controller
         $article->detachEstCite($request->query('detachable'));
 
         return redirect()
-            ->back()
-            ->with('ok', 'Citations détachée!');
+            ->to(route('articles.edit', $article) .'#form-citations')
+            ->with('ok', 'Citation détachée!');
     }
 }

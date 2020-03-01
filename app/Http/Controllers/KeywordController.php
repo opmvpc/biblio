@@ -122,7 +122,7 @@ class KeywordController extends Controller
         $article->attachKeywords($request->keywords);
 
         return redirect()
-            ->back()
+            ->to(route('articles.edit', $article) .'#form-keywords')
             ->with('ok', 'Mots-clés attachés!');
     }
 
@@ -131,7 +131,7 @@ class KeywordController extends Controller
         $article->detachKeyword($request->query('keyword'));
 
         return redirect()
-            ->back()
+            ->to(route('articles.edit', $article) .'#form-keywords')
             ->with('ok', 'Mot-clé détaché!');
     }
 }

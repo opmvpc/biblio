@@ -24,7 +24,7 @@
                     {!! Form::urlInput('url', 'Url') !!}
                     {!! Form::date('date', 'Date de publication') !!}
 
-                    <div class="form-group">
+                    {{-- <div class="form-group">
                         <label for="inp-categories" class="">Catégories</label>
                         <select name="categories[]" id="inp-categories" multiple required class="form-control">
                             @foreach ($categories as $key => $categorie)
@@ -34,7 +34,16 @@
                                 >{{ $categorie }}</option>
                             @endforeach
                         </select>
-                    </div>
+                    </div> --}}
+
+                    @component('components.inputs.select2', [
+                        'name' => 'categories',
+                        'label' => 'Catégories',
+                        'datas' => $categories,
+                        'selected' => [],
+                        'placeholder' => 'Recherchez des catégories',
+                    ])
+                    @endcomponent
 
                     {!! Form::textarea('resume', 'Résumé')->attrs(['rows' => 5]) !!}
                     {!! Form::textarea('abstract', 'Abstract')->attrs(['rows' => 10]) !!}

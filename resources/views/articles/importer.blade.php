@@ -21,35 +21,26 @@
 
                         {!! Form::textarea('bibtex', 'BibTeX')->placeholder('Coller une ou plusieures réferences BibTeX')->attrs(['rows' => 15]) !!}
 
-                        <div class="form-group">
-                            <label for="inp-cite" class="">Cite (Citations)</label>
-                            <select name="cite[]" id="inp-cite" multiple class="form-control">
-                                @foreach ($articles as $article)
-                                    <option
-                                        value="{{ $article->id }}"
-                                        {{ in_array($article->id, old('cite', [])) ? 'selected' : ''}}
-                                    >{{ $article->titre .' | '. $article->reference }}</option>
-                                @endforeach
-                            </select>
-                            <small class="form-text text-muted">
-                                Sélectionnez des articles qui sont des citations des articles importés
-                            </small>
-                        </div>
 
-                        <div class="form-group">
-                            <label for="inp-cite_par" class="">Cité par (Références)</label>
-                            <select name="cite_par[]" id="inp-cite_par" multiple class="form-control">
-                                @foreach ($articles as $article)
-                                    <option
-                                        value="{{ $article->id }}"
-                                        {{ in_array($article->id, old('cite_par', [])) ? 'selected' : ''}}
-                                    >{{ $article->titre .' | '. $article->reference }}</option>
-                                @endforeach
-                            </select>
-                            <small class="form-text text-muted">
-                                Sélectionnez des articles qui citent les articles importés
-                            </small>
-                        </div>
+                        @component('components.inputs.citation', [
+                            'name' => 'cite_par',
+                            'label' => 'Ajouter les articles importés comme références à',
+                            'articles' => $articles,
+                            'selected' => [],
+                            'placeholder' => 'Recherchez des articles',
+                            'help' => 'Sélectionnez des articles qui citent les articles importés',
+                        ])
+                        @endcomponent
+
+                        @component('components.inputs.citation', [
+                            'name' => 'cite',
+                            'label' => 'Ajouter les articles importés comme citations de',
+                            'articles' => $articles,
+                            'selected' => [],
+                            'placeholder' => 'Recherchez des articles',
+                            'help' => 'Sélectionnez des articles qui sont des citations des articles importés',
+                        ])
+                        @endcomponent
 
                         {!! Form::submit('Importer') !!}
 
@@ -61,14 +52,3 @@
     </div>
 </div>
 @endsection
-
-@push('scripts')
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            $('#inp-cite').select2({
-                placeholder: 'Recherchez des articles',
-                language: "fr"
-            });
-        });
-    </script>
-@endpush

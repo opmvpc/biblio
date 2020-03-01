@@ -121,7 +121,7 @@ class AuteurController extends Controller
         $article->attachAuteurs($request->auteurs);
 
         return redirect()
-            ->back()
+            ->to(route('articles.edit', $article) .'#form-auteurs')
             ->with('ok', 'Auteurs attachés!');
     }
 
@@ -130,7 +130,7 @@ class AuteurController extends Controller
         $article->detachAuteur($request->query('auteur'));
 
         return redirect()
-            ->back()
+            ->to(route('articles.edit', $article) .'#form-auteurs')
             ->with('ok', 'Auteur détaché!');
     }
 }

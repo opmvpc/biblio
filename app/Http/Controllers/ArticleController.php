@@ -124,6 +124,7 @@ class ArticleController extends Controller
     public function store(ArticleRequest $request)
     {
         $article = Article::create($request->all());
+        $article->saveCategories($request->categories);
 
         return redirect()
             ->route('articles.edit', $article)

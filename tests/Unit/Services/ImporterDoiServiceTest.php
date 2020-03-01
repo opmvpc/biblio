@@ -57,6 +57,19 @@ class ImporterDoiServiceTest extends TestCase
     }
 
     /**
+     * test mauvais doi
+     *
+     * @return void
+     */
+    public function testDoiAvecUrl()
+    {
+        $doi = 'https://doi.org/10.1504/IJMSO.2014.065444';
+        (new ImporterDoiService($doi))->save();
+
+        $this->assertDatabaseHas('articles', ['titre' => 'A domain-specific language for Virtual Classrooms']);
+    }
+
+    /**
      * test de la création d'un objet ImporterBibtexService
      *
      * @return void

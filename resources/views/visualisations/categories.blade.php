@@ -36,6 +36,8 @@ document.addEventListener("DOMContentLoaded", function() {
         const element = dbCategories[index];
         categories.push({name: element});
     }
+    console.log(categories);
+
 
     myChart.showLoading();
     $.getJSON('/visualisations/api/categories', function (json) {
@@ -99,9 +101,9 @@ document.addEventListener("DOMContentLoaded", function() {
                     draggable: true,
                     force: {
                         initLayout: 'circular',
-                        gravity: 0.1,
-                        repulsion: 200,
-                        edgeLength: 300,
+                        gravity: 0,
+                        repulsion: 100,
+                        edgeLength: 500,
                         layoutAnimation: true,
                     }
                 }

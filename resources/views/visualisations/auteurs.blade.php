@@ -91,7 +91,7 @@ document.addEventListener("DOMContentLoaded", function() {
                     draggable: true,
                     force: {
                         initLayout: 'circular',
-                        gravity: 0.1,
+                        gravity: 0.01,
                         repulsion: 200,
                         edgeLength: 200,
                         layoutAnimation: true,

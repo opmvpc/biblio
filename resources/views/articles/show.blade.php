@@ -54,7 +54,7 @@
                         Doi:
                     </dt>
                     <dd class="col-9">
-                        {{ $article->doi }}
+                        <a target="_blank" href="https://doi.org/{{ $article->doi }}">{{ $article->doi }}</a>
                     </dd>
 
                     <dt class="col-3 text-right">

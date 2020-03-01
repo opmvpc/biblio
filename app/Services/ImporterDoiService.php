@@ -9,7 +9,7 @@ class ImporterDoiService
     private $doi;
 
     public function __construct(string $doi) {
-        $this->doi = $doi;
+        $this->doi = static::cleanDoi($doi);
     }
 
     public function save(): void
@@ -52,5 +52,10 @@ class ImporterDoiService
 
         // return implode('', $explodeResponse);
         return $response;
+    }
+
+    private static function cleanDoi(string $doi): string
+    {
+        return preg_replace('/https:\/\/doi.org\//', '', $doi);
     }
 }
