@@ -107,18 +107,6 @@
         </div>
 
         <div class="card mb-4">
-            <div class="card-header">Mots-clés</div>
-
-            <div class="card-body">
-                @component('keywords.tableau', [
-                    'keywords' => $keywords,
-                    'article' => $article,
-                ])
-                @endcomponent
-            </div>
-        </div>
-
-        <div class="card mb-4">
             <div class="card-header">Références</div>
 
             <div class="card-body">
@@ -132,6 +120,18 @@
 
             <div class="card-body">
                 @component('articles.tableau', ['articles' => $article->estCite])
+                @endcomponent
+            </div>
+        </div>
+
+        <div class="card mb-4">
+            <div class="card-header">Mots-clés</div>
+
+            <div class="card-body">
+                @component('keywords.tableau', [
+                    'keywords' => $keywords,
+                    'article' => $article,
+                ])
                 @endcomponent
             </div>
         </div>
