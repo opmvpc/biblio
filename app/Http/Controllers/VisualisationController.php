@@ -100,6 +100,7 @@ class VisualisationController extends Controller
     {
         $nodes = Article
             ::withCount(['estCite'])
+            ->whereHas('categories')
             ->get()
             ->each( function ($article) {
                 $article->nodeType = 'Articles';

@@ -6,7 +6,7 @@
         @include('visualisations.menu')
         <div class="col-12">
             <div class="card">
-                <div class="card-header">Citations entre articles</div>
+                <div class="card-header">Citations entre articles <span class="text-muted">(couleurs en fonction de la pertinence)</span></div>
 
                 <div class="card-body d-flex justify-content-center">
                     <div
@@ -69,7 +69,7 @@ document.addEventListener("DOMContentLoaded", function() {
                         return {
                             source: edge.source,
                             target: edge.target,
-                            symbol: ['', 'arrow'],
+                            symbol: ['arrow', ''],
                             lineStyle: {
                                 color: '#cbd5e0',
                                 curveness: 0,
@@ -95,7 +95,7 @@ document.addEventListener("DOMContentLoaded", function() {
                         initLayout: 'circular',
                         gravity: 0.01,
                         repulsion: 200,
-                        edgeLength: 200,
+                        edgeLength: 300,
                         layoutAnimation: true,
                     }
                 }

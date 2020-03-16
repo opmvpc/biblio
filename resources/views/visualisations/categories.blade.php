@@ -26,15 +26,17 @@
 <script type="text/javascript">
 document.addEventListener("DOMContentLoaded", function() {
     var myChart = echarts.init(document.getElementById('graph'));
-    let dbCategories = @json($categorieClass::pluck('nom'));
+    let dbCategories = @json($categorieClass::pluck('nom', 'slug'));
+    console.log(dbCategories);
 
-    let categories = [
-        {name: 'Articles', itemStyle: {color: '#81e6d9'}},
-    ];
 
-    for (let index = 0; index < dbCategories.length; index++) {
-        const element = dbCategories[index];
-        categories.push({name: element});
+    let categories = [{slug:'articles', name:'Articles', itemStyle: {color: '#81e6d9'}}];
+
+    for (const key in dbCategories) {
+        if (dbCategories.hasOwnProperty(key)) {
+            const element = dbCategories[key];
+            categories.push({slug:key, name: element});
+        }
     }
     console.log(categories);
 
@@ -54,8 +56,8 @@ document.addEventListener("DOMContentLoaded", function() {
                     return a.name;
                 })
             }],
-            animationDurationUpdate: 1500,
-            animationEasingUpdate: 'quinticInOut',
+            // animationDurationUpdate: 1500,
+            // animationEasingUpdate: 'quinticInOut',
             series : [
                 {
                     type: 'graph',
@@ -70,7 +72,7 @@ document.addEventListener("DOMContentLoaded", function() {
                             name: node.nodeType == "Categories" ? node.nom : node.titre,
                             dbId: node.id,
                             category: node.nodeType == "Categories" ? categories[node.id].name : categories[0].name,
-                            symbolSize: node.nodeType == "Categories"? (node.articles_count ? (node.articles_count * 4) + 4 : 4) : (node.est_cite_count ? (node.est_cite_count * 6) + 10 : 10),
+                            symbolSize: node.nodeType == "Categories"? (node.articles_count ? (node.articles_count * 2) + 2 : 2) : (node.est_cite_count ? (node.est_cite_count * 3) + 5 : 5),
                         };
                     }),
                     links: json.edges.map(function (edge) {
@@ -94,15 +96,15 @@ document.addEventListener("DOMContentLoaded", function() {
                     roam: true,
                     focusNodeAdjacency: true,
                     lineStyle: {
-                        width: 0.5,
+                        width: 0.7,
                         curveness: 0.3,
                         opacity: 0.7
                     },
                     draggable: true,
                     force: {
-                        initLayout: 'circular',
+                        // initLayout: 'circular',
                         gravity: 0,
-                        repulsion: 100,
+                        repulsion: 0,
                         edgeLength: 500,
                         layoutAnimation: true,
                     }
