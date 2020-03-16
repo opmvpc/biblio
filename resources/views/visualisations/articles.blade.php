@@ -53,7 +53,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 {
                     type: 'graph',
                     layout: 'force',
-                    progressiveThreshold: 700,
+                    progressiveThreshold: 3000,
                     data: json.nodes.map(function (node) {
                         return {
                             x: null,

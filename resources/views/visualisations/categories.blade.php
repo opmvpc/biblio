@@ -6,7 +6,7 @@
         @include('visualisations.menu')
         <div class="col-12">
             <div class="card">
-                <div class="card-header">Articles par categories</div>
+                <div class="card-header">Articles par catégories</div>
 
                 <div class="card-body d-flex justify-content-center">
                     <div
@@ -62,11 +62,12 @@ document.addEventListener("DOMContentLoaded", function() {
                 {
                     type: 'graph',
                     layout: 'force',
-                    progressiveThreshold: 700,
+                    progressiveThreshold: 3000,
                     data: json.nodes.map(function (node) {
                         return {
                             x: null,
                             y: null,
+                            draggable: true,
                             id: node.slug,
                             nodeType: node.nodeType,
                             name: node.nodeType == "Categories" ? node.nom : node.titre,
@@ -103,10 +104,10 @@ document.addEventListener("DOMContentLoaded", function() {
                     draggable: true,
                     force: {
                         // initLayout: 'circular',
-                        gravity: 0,
-                        repulsion: 100,
+                        // gravity: 0,
+                        repulsion: 500,
                         edgeLength: 500,
-                        layoutAnimation: true,
+                        layoutAnimation: false,
                     }
                 }
             ]
