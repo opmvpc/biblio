@@ -56,8 +56,8 @@ document.addEventListener("DOMContentLoaded", function() {
                     return a.name;
                 })
             }],
-            animationDurationUpdate: 1500,
-            animationEasingUpdate: 'quinticInOut',
+            // animationDurationUpdate: 1500,
+            // animationEasingUpdate: 'quinticInOut',
             series : [
                 {
                     type: 'graph',
@@ -106,7 +106,7 @@ document.addEventListener("DOMContentLoaded", function() {
                         gravity: 0,
                         repulsion: 100,
                         edgeLength: 500,
-                        layoutAnimation: false,
+                        layoutAnimation: true,
                     }
                 }
             ]
