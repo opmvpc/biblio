@@ -1,6 +1,6 @@
 # Prérequis
 
-+ php 7.1
++ php 7.2
 + composer
 + mysql
 
@@ -27,8 +27,7 @@ $ composer install
 $ cp .env.example .env
 ```
 
-### 4. Puis renseigner les infos de votre DB et vos clés Api GitHub (en créer une OAuth ici https://github.com/settings/developers)
-ainsi que le lien de callback de l'auth par github (Ex: http://localhost/login/github/callback) situés en fin de fichier.
+### 4. Puis renseigner les infos de votre DB
 
 ### 5. Générer la clé d'encryption
 
@@ -55,7 +54,7 @@ $ sudo chmod -R g+w storage/
 $ php artisan storage:link
 ```
 
-### 9. assets js css dans une deuxieme fenetre de commande
+### 9. assets js css dans une deuxieme fenetre de commande (pas besoin si on ne modifie pas le code js ou css)
 
 ```bash
 $ npm install && npm run watch
