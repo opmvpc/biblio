@@ -18,6 +18,8 @@ Route::get('/', function () {
     return redirect()->route('articles.index');
 });
 
+Route::get('export', 'ExportController@index')->name('export.index');
+Route::get('export/bibtex', 'ExportController@getBibtex')->name('export.bibtex');
 Route::get('articles/importer', 'ImporterArticleController@index')->name('articles.importer.index');
 Route::post('articles/importer', 'ImporterArticleController@store')->name('articles.importer.store');
 Route::post('articles/{article}/upload', 'ArticleUploadController@upload')->name('articles.upload');

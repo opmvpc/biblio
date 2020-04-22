@@ -14,6 +14,7 @@
         "laravel/tinker": "^2.0",
         "netojose/laravel-bootstrap-4-forms": "^3.0",
         "renanbr/bibtex-parser": "2",
+        "xianzhe18/bibtex-handler": "^2.0",
         "yajra/laravel-datatables-oracle": "~9.0"
     },
     "require-dev": {
