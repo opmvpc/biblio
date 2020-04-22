@@ -84,7 +84,7 @@
 </div>
 
 @if(method_exists($articles, 'links'))
-    <div class="d-flex justify-content-center mt-3" style="overflow-x: auto;">
-        {!! $articles->links() !!}
+    <div class="float-right mt-3">
+        {!! $articles->onEachSide(1)->links() !!}
     </div>
 @endif
