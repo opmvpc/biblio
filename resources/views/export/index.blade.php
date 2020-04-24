@@ -13,6 +13,7 @@
 
             <div class="card-body">
                 <h5>Export au format BibTeX</h5>
+                <p class="pt-2">Attention! Seuls les articles dont la pertinence est <span class="badge badge-success">Haute</span> seront exportés.</p>
                 <a class="btn btn-primary mt-2" target="_blank" href="{{ route('export.bibtex') }}">Générer la bibliographie</a>
             </div>
         </div>
