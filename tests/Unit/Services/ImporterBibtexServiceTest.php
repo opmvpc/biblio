@@ -35,7 +35,7 @@ class ImporterBibtexServiceTest extends TestCase
         $bibtex = static::getBibtexArticle();
         $service = new ImporterBibtexService($bibtex);
 
-        $articles = $this->invokeMethod($service, 'parse', array('passwordToCrypt'), []);
+        $articles = $this->invokeMethod($service, 'parse', [], []);
         // $this->assertEquals($bibtex, $articles[0]['_original']);
         $this->assertEquals('article', $articles[0]['type']);
         $this->assertEquals('{An introduction to object-oriented programming with a didactic microworld: objectKarel}', $articles[0]['title']);
@@ -57,6 +57,22 @@ class ImporterBibtexServiceTest extends TestCase
         $this->assertDatabaseHas('articles', ['titre' => 'An introduction to object-oriented programming with a didactic microworld: objectKarel']);
         $this->assertDatabaseHas('keywords', ['nom' => 'Teaching/learning strategies']);
         $this->assertDatabaseHas('auteurs', ['nom' => 'Xinogalos']);
+    }
+
+        /**
+     * test de la sauvegarde d'un article en db
+     *
+     * @return void
+     */
+    public function testSaveBibtexRefDoi()
+    {
+        $bibtex = static::getBibtexArticleRefDoi();
+        $service = new ImporterBibtexService($bibtex);
+
+        $service->save();
+
+        $this->assertDatabaseHas('articles', ['titre' => 'SNAP! (Build Your Own Blocks) (Abstract Only)']);
+        $this->assertDatabaseHas('articles', ['doi' => '10.1145/2445196.2445507']);
     }
 
     /**
@@ -157,6 +173,28 @@ EOT;
     url = {https://www.sciencedirect.com/science/article/abs/pii/S1477842417300404},
     volume = {51},
     year = {2018}
+}
+EOT;
+    }
+
+
+    private static function getBibtexArticleRefDoi(): string
+    {
+        return <<<EOT
+@inproceedings{10.1145/2445196.2445507,
+    author = {Harvey, Brian and Garcia, Daniel D. and Barnes, Tiffany and Titterton, Nathaniel and Armendariz, Daniel and Segars, Luke and Lemon, Eugene and Morris, Sean and Paley, Josh},
+    title = {SNAP! (Build Your Own Blocks) (Abstract Only)},
+    year = {2013},
+    isbn = {9781450318686},
+    publisher = {Association for Computing Machinery},
+    address = {New York, NY, USA},
+    url = {https://doi.org/10.1145/2445196.2445507},
+    booktitle = {Proceeding of the 44th ACM Technical Symposium on Computer Science Education},
+    pages = {759},
+    numpages = {1},
+    keywords = {cs 0, snap! programming language},
+    location = {Denver, Colorado, USA},
+    series = {SIGCSE ’13}
 }
 EOT;
     }

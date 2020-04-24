@@ -15,8 +15,7 @@ class ImporterDoiService
     public function save(): void
     {
         $bibtex = $this->getBibtex();
-        // dd($bibtex);
-        (new ImporterBibtexService($bibtex))->save();
+        (new ImporterBibtexService($bibtex, $this->doi))->save();
     }
 
     public function getBibtex(): string

@@ -2,21 +2,24 @@
 
 namespace App\Services;
 
-use App\Article;
 use App\Auteur;
+use App\Article;
 use App\Keyword;
-use App\TypeReference;
 use Carbon\Carbon;
+use App\TypeReference;
 use Illuminate\Support\Str;
-use RenanBr\BibTexParser\Parser;
-use RenanBr\BibTexParser\Listener;
+use Xianzhe18\BibTexParser\Parser;
+use Xianzhe18\BibTexParser\Listener;
 
 class ImporterBibtexService
 {
     private $bibtex;
+    private $doi;
+    private $ref;
 
-    public function __construct(string $bibtex) {
+    public function __construct(string $bibtex, ?string $doi = null) {
         $this->bibtex = $bibtex;
+        $this->doi = $doi;
     }
 
     public function save(): void
@@ -28,9 +31,11 @@ class ImporterBibtexService
     private function parse(): array
     {
         $regex = '/\@(\w*)\{(.*|http.*),/';
-        // $regex = '/\@(\w*)\{((\d|\.|\/)*|http.*),/';
+
+        $this->extractRef();
+
+        // suppression de la référence du bibtex, car incompatible avec le parser
         $this->bibtex = preg_replace($regex, '@$1{', $this->bibtex);
-        // dd($this->bibtex);
         $parser = new Parser();
         $listener = new Listener();
         $parser->addListener($listener);
@@ -38,6 +43,24 @@ class ImporterBibtexService
         $articles = $listener->export();
 
         return $articles;
+    }
+
+    // récupération du doi ou de la référence depuis le bibtex
+    private function extractRef()
+    {
+        $result = [];
+        $ref = '';
+
+        preg_match('/\@\w*\{(.*)/', $this->bibtex(), $result);
+        $ref = explode(',', $result[1])[0];
+
+        if (Str::startsWith($ref, '10.')) {
+            if ($this->doi === null) {
+                $this->doi = $ref;
+            }
+        } else {
+            $this->ref = $ref;
+        }
     }
 
     private function createArticles(array $articles): void
@@ -50,13 +73,13 @@ class ImporterBibtexService
             return [
                 'titre' => Str::limit($this->sanatizeText($article->get('title'), 295)),
                 'auteurs' => $article->get('author'),
-                'reference' => $this->sanatizeText($article->get('citation-key')),
+                'reference' => $this->sanatizeText($article->get('citation-key')) === '' ? $this->ref : $this->sanatizeText($article->get('citation-key')),
                 'date' => $this->getDate(intval($article->get('year')), intval($article->get('month'))),
                 'url' => $this->sanatizeText($article->get('url')),
                 'bibtex' => $article->get('_original'),
                 'abstract' => $article->get('abstract'),
                 'keywords' => $article->get('keywords'),
-                'doi' => $this->sanatizeText($article->get('doi')),
+                'doi' => $this->sanatizeText($article->get('doi')) === '' ? $this->doi : $this->sanatizeText($article->get('doi')),
                 'type' => $article->get('type'),
             ];
         })
