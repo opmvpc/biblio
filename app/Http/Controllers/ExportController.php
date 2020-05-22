@@ -28,6 +28,8 @@ class ExportController extends Controller
                 $bibtex = $this->formatBibtexNull($article);
             }
 
+            $bibtex = nl2br($bibtex);
+
             return  $text .'<br><br>'. $bibtex;
         });
     }
@@ -54,8 +56,8 @@ class ExportController extends Controller
             'citation-key' => $this->getReference($article),
             'year' => $article->date->format('Y'),
             'month' => $article->date->format('m'),
-            'titre' => $article->titre,
-            'auteurs' => $article->auteurs->pluck('nom')->implode(', '),
+            'title' => $article->titre,
+            'author' => $article->auteurs->pluck('nom')->implode(', '),
             'date' => $article->date->format('Y-m-d'),
             'url' => $article->url,
             'abstract' => $article->abstract,
