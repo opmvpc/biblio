@@ -65,19 +65,21 @@ Et normalement ça devrait fonctionner
 
 
 # TO DO
-- [] Github actions
-- [] psalm
-- [] fix erreurs psalm
-- [] cs-fixer
-- [] Larastan
-- [] Laravel 8
-- [] Commenter, factoriser
+- [x] Github actions
+- [x] psalm
+- [ ] fix erreurs psalm
+- [x] Larastan
+- [ ] Fix erreurs larastan et phpInsights
+- [x] cs-fixer
+- [ ] quelques tests http
+- [ ] Laravel 8
+- [ ] Commenter, factoriser
 
 # Idées
-- [] Plusieurs langues (anglais et fr)
-- [] Un user peut créer des équipes et une équipe ou un user peut avoir plusieurs "projets"
-- [] un "projet" peut etre une bibliographie ou un inventaire d'items (exemple: graines, plasmides)
-- [] Page de présentation du projet (exemple: page publique qui présente l'état de l'art avec lien vers pdf et slides)
-- [] Identitée visuelle (un peu de css, un logo)
-- [] charset des bibtex mal géré
-- [] améliorer les formulaires, simplifier certaines pages
+- [ ] Plusieurs langues (anglais et fr)
+- [ ] Un user peut créer des équipes et une équipe ou un user peut avoir plusieurs "projets"
+- [ ] un "projet" peut etre une bibliographie ou un inventaire d'items (exemple: graines, plasmides)
+- [ ] Page de présentation du projet (exemple: page publique qui présente l'état de l'art avec lien vers pdf et slides)
+- [ ] Identitée visuelle (un peu de css, un logo)
+- [ ] charset des bibtex mal géré
+- [ ] améliorer les formulaires, simplifier certaines pages
