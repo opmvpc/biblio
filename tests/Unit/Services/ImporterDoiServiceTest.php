@@ -2,10 +2,10 @@
 
 namespace Tests\Unit\Services;
 
-use Tests\TestCase;
-use InvalidArgumentException;
 use App\Services\ImporterDoiService;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use InvalidArgumentException;
+use Tests\TestCase;
 
 class ImporterDoiServiceTest extends TestCase
 {
@@ -80,7 +80,7 @@ class ImporterDoiServiceTest extends TestCase
 
         $service = new ImporterDoiService($doi);
 
-        $this->assertStringContainsString(static::getBibtexArticle(), $service->getBibtex());
+        $this->assertStringContainsString(str_replace('\\n', '', static::getBibtexArticle()), $service->getBibtex());
     }
 
     /**
