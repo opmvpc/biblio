@@ -16,9 +16,9 @@ class UserController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\View\View
      */
-    public function index()
+    public function index(): \Illuminate\View\View
     {
         $users = User
             ::paginate(10);
@@ -29,9 +29,9 @@ class UserController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\View\View
      */
-    public function create()
+    public function create(): \Illuminate\View\View
     {
         return view('users.create');
     }
@@ -39,10 +39,11 @@ class UserController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param UtilisateurRequest $request
+     *
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(UtilisateurRequest $request)
+    public function store(UtilisateurRequest $request): \Illuminate\Http\RedirectResponse
     {
         $datas = collect($request->all())
             ->put('password', bcrypt($request->password))
@@ -58,10 +59,11 @@ class UserController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\User  $user
-     * @return \Illuminate\Http\Response
+     * @param \App\User  $user
+     *
+     * @return void
      */
-    public function show(User $user)
+    public function show(User $user): void
     {
         //
     }
@@ -69,10 +71,11 @@ class UserController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\User  $user
-     * @return \Illuminate\Http\Response
+     * @param \App\User  $user
+     *
+     * @return void
      */
-    public function edit(User $user)
+    public function edit(User $user): void
     {
         //
     }
@@ -80,11 +83,12 @@ class UserController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\User  $user
-     * @return \Illuminate\Http\Response
+     * @param \Illuminate\Http\Request  $request
+     * @param \App\User  $user
+     *
+     * @return void
      */
-    public function update(Request $request, User $user)
+    public function update(Request $request, User $user): void
     {
         //
     }
@@ -92,10 +96,11 @@ class UserController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\User  $user
-     * @return \Illuminate\Http\Response
+     * @param \App\User  $user
+     *
+     * @return void
      */
-    public function destroy(User $user)
+    public function destroy(User $user): void
     {
         //
     }

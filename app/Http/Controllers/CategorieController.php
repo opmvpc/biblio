@@ -15,9 +15,9 @@ class CategorieController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\View\View
      */
-    public function index()
+    public function index(): \Illuminate\View\View
     {
         $categories = Categorie
             ::withCount('articles')
@@ -29,9 +29,9 @@ class CategorieController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\View\View
      */
-    public function create()
+    public function create(): \Illuminate\View\View
     {
         return view('categories.create');
     }
@@ -39,10 +39,11 @@ class CategorieController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param CategorieRequest $request
+     *
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(CategorieRequest $request)
+    public function store(CategorieRequest $request): \Illuminate\Http\RedirectResponse
     {
         $category = Categorie::create($request->all());
 
@@ -54,10 +55,11 @@ class CategorieController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Categorie  $categorie
-     * @return \Illuminate\Http\Response
+     * @param \App\Categorie  $categorie
+     *
+     * @return \Illuminate\View\View
      */
-    public function show(Categorie $category)
+    public function show(Categorie $category): \Illuminate\View\View
     {
         $articles = $category
         ->articles()
@@ -70,10 +72,11 @@ class CategorieController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Categorie  $categorie
-     * @return \Illuminate\Http\Response
+     * @param \App\Categorie  $categorie
+     *
+     * @return \Illuminate\View\View
      */
-    public function edit(Categorie $category)
+    public function edit(Categorie $category): \Illuminate\View\View
     {
         return view('categories.edit', compact('category'));
     }
@@ -81,11 +84,12 @@ class CategorieController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Categorie  $categorie
-     * @return \Illuminate\Http\Response
+     * @param CategorieRequest $request
+     * @param \App\Categorie  $categorie
+     *
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(CategorieRequest $request, Categorie $category)
+    public function update(CategorieRequest $request, Categorie $category): \Illuminate\Http\RedirectResponse
     {
         $category->update($request->all());
 
@@ -97,10 +101,11 @@ class CategorieController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Categorie  $categorie
-     * @return \Illuminate\Http\Response
+     * @param \App\Categorie  $categorie
+     *
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function destroy(Categorie $category)
+    public function destroy(Categorie $category): \Illuminate\Http\RedirectResponse
     {
         $category->delete();
 

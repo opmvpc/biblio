@@ -17,9 +17,9 @@ class AuteurController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\View\View
      */
-    public function index(Request $request)
+    public function index(Request $request): \Illuminate\View\View
     {
         $auteurs = Auteur
             ::withCount('articles')
@@ -37,9 +37,9 @@ class AuteurController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\View\View
      */
-    public function create()
+    public function create(): \Illuminate\View\View
     {
         return view('auteurs.create');
     }
@@ -47,10 +47,11 @@ class AuteurController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param AuteurRequest $request
+     *
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(AuteurRequest $request)
+    public function store(AuteurRequest $request): \Illuminate\Http\RedirectResponse
     {
         $auteur = Auteur::create($request->all());
 
@@ -62,10 +63,11 @@ class AuteurController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Auteur  $auteur
-     * @return \Illuminate\Http\Response
+     * @param \App\Auteur  $auteur
+     *
+     * @return \Illuminate\View\View
      */
-    public function show(Auteur $auteur)
+    public function show(Auteur $auteur): \Illuminate\View\View
     {
         $articles = $auteur
             ->articles()
@@ -78,10 +80,11 @@ class AuteurController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Auteur  $auteur
-     * @return \Illuminate\Http\Response
+     * @param \App\Auteur  $auteur
+     *
+     * @return \Illuminate\View\View
      */
-    public function edit(Auteur $auteur)
+    public function edit(Auteur $auteur): \Illuminate\View\View
     {
         return view('auteurs.edit', compact('auteur'));
     }
@@ -89,11 +92,12 @@ class AuteurController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Auteur  $auteur
-     * @return \Illuminate\Http\Response
+     * @param AuteurRequest $request
+     * @param \App\Auteur  $auteur
+     *
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(AuteurRequest $request, Auteur $auteur)
+    public function update(AuteurRequest $request, Auteur $auteur): \Illuminate\Http\RedirectResponse
     {
         $auteur->update($request->all());
 
@@ -105,10 +109,11 @@ class AuteurController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Auteur  $auteur
-     * @return \Illuminate\Http\Response
+     * @param \App\Auteur  $auteur
+     *
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function destroy(Auteur $auteur)
+    public function destroy(Auteur $auteur): \Illuminate\Http\RedirectResponse
     {
         $auteur->delete();
 

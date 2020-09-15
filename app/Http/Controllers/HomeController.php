@@ -17,9 +17,9 @@ class HomeController extends Controller
     /**
      * Show the application dashboard.
      *
-     * @return \Illuminate\Contracts\Support\Renderable
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function index()
+    public function index(): \Illuminate\Http\RedirectResponse
     {
         return redirect()->route('articles.index');
     }

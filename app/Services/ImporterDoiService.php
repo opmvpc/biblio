@@ -30,7 +30,7 @@ class ImporterDoiService
         $err = curl_error($ch);
         curl_close($ch);
 
-        if ($response == 'The resource you are looking for doesn\'t exist.') {
+        if ($response == 'The resource you are looking for doesn\'t exist.' || $response === false) {
             throw new \InvalidArgumentException("Error Processing Request, wrong Doi", 1);
         }
 

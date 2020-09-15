@@ -56,9 +56,9 @@ class ArticleController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\View\View
      */
-    public function index(Request $request)
+    public function index(Request $request): \Illuminate\View\View
     {
         $articles = Article
             ::with(['categories', 'auteurs', 'type'])
@@ -106,9 +106,9 @@ class ArticleController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\View\View
      */
-    public function create()
+    public function create(): \Illuminate\View\View
     {
         $categories = Categorie::pluck('nom', 'id');
         $pertinences = Article::getPertinenceDatas();
@@ -119,10 +119,11 @@ class ArticleController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param ArticleRequest $request
+     *
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(ArticleRequest $request)
+    public function store(ArticleRequest $request): \Illuminate\Http\RedirectResponse
     {
         $article = Article::create($request->all());
         $article->saveCategories($request->categories);
@@ -135,10 +136,11 @@ class ArticleController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Article  $article
-     * @return \Illuminate\Http\Response
+     * @param \App\Article  $article
+     *
+     * @return \Illuminate\View\View
      */
-    public function show(Article $article)
+    public function show(Article $article): \Illuminate\View\View
     {
         $keywords = $article
             ->keywords()
@@ -158,10 +160,11 @@ class ArticleController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Article  $article
-     * @return \Illuminate\Http\Response
+     * @param \App\Article  $article
+     *
+     * @return \Illuminate\View\View
      */
-    public function edit(Article $article)
+    public function edit(Article $article): \Illuminate\View\View
     {
         $categories = Categorie::pluck('nom', 'id');
         $pertinences = Article::getPertinenceDatas();
@@ -208,11 +211,12 @@ class ArticleController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Article  $article
-     * @return \Illuminate\Http\Response
+     * @param ArticleRequest $request
+     * @param \App\Article  $article
+     *
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(ArticleRequest $request, Article $article)
+    public function update(ArticleRequest $request, Article $article): \Illuminate\Http\RedirectResponse
     {
         $article->update($request->all());
         $article->saveCategories($request->categories);
@@ -225,10 +229,11 @@ class ArticleController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Article  $article
-     * @return \Illuminate\Http\Response
+     * @param \App\Article  $article
+     *
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function destroy(Article $article)
+    public function destroy(Article $article): \Illuminate\Http\RedirectResponse
     {
         $article->deletePdfArticle();
         $article->delete();

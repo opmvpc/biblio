@@ -68,7 +68,7 @@ class ExportController extends Controller
         return $parser->convertIntoBibTex($bibtex);
     }
 
-    public function getReference($article)
+    public function getReference(Article $article)
     {
         $reference = '';
         if ($article->reference != null) {
