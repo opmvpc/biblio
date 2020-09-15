@@ -3,12 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Article;
-use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\ArticleUploadRequest;
 
 class ArticleUploadController extends Controller
 {
-    public function __construct() {
+    public function __construct()
+    {
         $this->middleware('auth');
     }
 
@@ -17,7 +17,7 @@ class ArticleUploadController extends Controller
         if ($request->has('file')) {
             $path = $article->savePdfArticle();
 
-            return response()->json(['success'=> $path]);
+            return response()->json(['success' => $path]);
         }
     }
 }

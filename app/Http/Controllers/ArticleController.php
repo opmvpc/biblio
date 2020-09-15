@@ -2,17 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Auteur;
 use App\Article;
-use App\Keyword;
+use App\Auteur;
 use App\Categorie;
-use Illuminate\Http\Request;
 use App\Http\Requests\ArticleRequest;
+use App\Keyword;
+use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
 
 class ArticleController extends Controller
 {
-    public function __construct() {
+    public function __construct()
+    {
         $this->middleware('auth')->except(['index', 'show', 'api']);
     }
 
@@ -62,7 +63,7 @@ class ArticleController extends Controller
         $articles = Article
             ::with(['categories', 'auteurs', 'type'])
             ->withCount(['cite', 'estCite'])
-            ->when(!$request->has('sort'), function ($query) {
+            ->when(! $request->has('sort'), function ($query) {
                 $query->orderBy('date', 'Desc');
             })
             ->when($request->has('sort') && $request->sort != null, function ($query) {

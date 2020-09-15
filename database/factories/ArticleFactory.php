@@ -25,8 +25,9 @@ $factory->define(Article::class, function (Faker $faker) {
 function getAuteurs($faker)
 {
     $auteurs = collect();
-    for ($i=0; $i < rand(1, 5); $i++) {
+    for ($i = 0; $i < rand(1, 5); $i++) {
         $auteurs->push(['nom' => $faker->name]);
     }
+
     return $auteurs->implode('nom', ',');
 }

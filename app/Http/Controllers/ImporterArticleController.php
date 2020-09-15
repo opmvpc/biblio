@@ -3,15 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Article;
-use Illuminate\Http\Request;
-use App\Services\ImporterDoiService;
-use App\Services\ImporterBibtexService;
-use Illuminate\Support\Facades\Validator;
 use App\Http\Requests\ImporterArticleRequest;
+use App\Services\ImporterBibtexService;
+use App\Services\ImporterDoiService;
+use Illuminate\Support\Facades\Validator;
 
 class ImporterArticleController extends Controller
 {
-    public function __construct() {
+    public function __construct()
+    {
         $this->middleware('auth');
     }
 
@@ -34,6 +34,7 @@ class ImporterArticleController extends Controller
             } catch (\InvalidArgumentException $e) {
                 $validator = Validator::make($request->only('doi'), []);
                 $validator->errors()->add('doi', 'Le doi est invalide');
+
                 return redirect()
                     ->back()
                     ->withInput()

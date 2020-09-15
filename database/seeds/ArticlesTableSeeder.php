@@ -14,7 +14,7 @@ class ArticlesTableSeeder extends Seeder
     {
         factory(App\Article::class, 20)
             ->create()
-            ->each( function ($article) {
+            ->each(function ($article) {
                 $article->categories()->sync($this->getCategories());
             });
     }
@@ -23,9 +23,9 @@ class ArticlesTableSeeder extends Seeder
     {
         $categories = [];
 
-        for ($i=0; $i < rand(1, 8); $i++) {
+        for ($i = 0; $i < rand(1, 8); $i++) {
             $randomCategorieId = rand(1, Categorie::count());
-            if (!in_array($randomCategorieId, $categories)) {
+            if (! in_array($randomCategorieId, $categories)) {
                 $categories[] = $randomCategorieId;
             }
         }

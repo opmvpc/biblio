@@ -3,13 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Article;
+use App\Http\Requests\KeywordRequest;
 use App\Keyword;
 use Illuminate\Http\Request;
-use App\Http\Requests\KeywordRequest;
 
 class KeywordController extends Controller
 {
-    public function __construct() {
+    public function __construct()
+    {
         $this->middleware('auth')->except(['index', 'show']);
     }
 

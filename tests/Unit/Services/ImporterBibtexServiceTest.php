@@ -2,9 +2,9 @@
 
 namespace Tests\Unit\Services;
 
-use Tests\TestCase;
 use App\Services\ImporterBibtexService;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\TestCase;
 
 class ImporterBibtexServiceTest extends TestCase
 {
@@ -59,7 +59,7 @@ class ImporterBibtexServiceTest extends TestCase
         $this->assertDatabaseHas('auteurs', ['nom' => 'Xinogalos']);
     }
 
-        /**
+    /**
      * test de la sauvegarde d'un article en db
      *
      * @return void

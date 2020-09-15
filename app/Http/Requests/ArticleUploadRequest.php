@@ -24,7 +24,7 @@ class ArticleUploadRequest extends FormRequest
     public function rules()
     {
         return [
-            'file' => 'file|mimes:pdf'
+            'file' => 'file|mimes:pdf',
         ];
     }
 }

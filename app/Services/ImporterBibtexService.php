@@ -2,14 +2,14 @@
 
 namespace App\Services;
 
-use App\Auteur;
 use App\Article;
+use App\Auteur;
 use App\Keyword;
-use Carbon\Carbon;
 use App\TypeReference;
+use Carbon\Carbon;
 use Illuminate\Support\Str;
-use Xianzhe18\BibTexParser\Parser;
 use Xianzhe18\BibTexParser\Listener;
+use Xianzhe18\BibTexParser\Parser;
 
 class ImporterBibtexService
 {
@@ -17,7 +17,8 @@ class ImporterBibtexService
     private $doi;
     private $ref;
 
-    public function __construct(string $bibtex, ?string $doi = null) {
+    public function __construct(string $bibtex, ?string $doi = null)
+    {
         $this->bibtex = $bibtex;
         $this->doi = $doi;
     }
@@ -66,10 +67,10 @@ class ImporterBibtexService
     private function createArticles(array $articles): void
     {
         collect($articles)
-        ->map( function ($article) {
+        ->map(function ($article) {
             return collect($article);
         })
-        ->map( function ($article) {
+        ->map(function ($article) {
             return [
                 'titre' => Str::limit($this->sanatizeText($article->get('title'), 295)),
                 'auteurs' => $article->get('author'),
@@ -83,12 +84,13 @@ class ImporterBibtexService
                 'type' => $article->get('type'),
             ];
         })
-        ->each( function ($article) {
+        ->each(function ($article) {
             $nouvelArticle = Article::firstOrCreate(['slug' => Str::slug($article['titre'])], $article);
 
             if (request()->has('cite_par')) {
                 $nouvelArticle->attachEstCite(request()->cite_par);
-            } if (request()->has('cite')) {
+            }
+            if (request()->has('cite')) {
                 $nouvelArticle->attachCite(request()->cite);
             }
 
@@ -108,25 +110,27 @@ class ImporterBibtexService
     private function sanatizeText($bibtexAttribute): string
     {
         $sanatyzedText = preg_replace('/{|}/', '', $bibtexAttribute);
+
         return $sanatyzedText;
     }
 
     private function getDate(?int $annee, ?int $mois): Carbon
     {
-        if (! $annee || $annee == -1 ) {
+        if (! $annee || $annee == -1) {
             $annee = 1975;
         }
+
         return Carbon::createFromDate($annee, $mois ?? 1, 1);
     }
 
     private function attachResources(Article $article, ?string $attachables, string $attachableType): void
     {
         collect(explode(',', $attachables))
-            ->map( function ($attachable) {
+            ->map(function ($attachable) {
                 return trim($attachable);
             })
             ->filter()
-            ->each( function ($attachable) use ($article, $attachableType) {
+            ->each(function ($attachable) use ($article, $attachableType) {
                 $attachable = $this->sanatizeText($attachable);
                 if ($attachableType == 'Keyword') {
                     $this->attachKeyword($article, $attachable);
@@ -140,7 +144,7 @@ class ImporterBibtexService
     private function attachKeyword(Article $article, string $keyword): void
     {
         $keyword = Str::limit($keyword, 295);
-        $nouveauKeyword = Keyword::firstOrCreate(['slug' =>  Str::slug($keyword)], ['nom' => $keyword]);
+        $nouveauKeyword = Keyword::firstOrCreate(['slug' => Str::slug($keyword)], ['nom' => $keyword]);
         $article->attachKeyword($nouveauKeyword->id);
     }
 

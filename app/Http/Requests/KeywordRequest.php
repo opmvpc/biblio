@@ -2,9 +2,8 @@
 
 namespace App\Http\Requests;
 
-use App\Keyword;
-use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class KeywordRequest extends FormRequest
 {

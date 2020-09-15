@@ -18,6 +18,7 @@ class Article extends JsonResource
             'nodes' => [],
             'links' => [],
         ];
+
         return parent::toArray($request);
     }
 }

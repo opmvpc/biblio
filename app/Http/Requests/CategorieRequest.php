@@ -2,9 +2,8 @@
 
 namespace App\Http\Requests;
 
-use App\Categorie;
-use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class CategorieRequest extends FormRequest
 {
@@ -25,7 +24,6 @@ class CategorieRequest extends FormRequest
      */
     public function rules()
     {
-
         $rules = [
             'required',
             'string',

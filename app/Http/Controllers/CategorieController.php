@@ -2,14 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Article;
 use App\Categorie;
-use Illuminate\Http\Request;
 use App\Http\Requests\CategorieRequest;
 
 class CategorieController extends Controller
 {
-    public function __construct() {
+    public function __construct()
+    {
         $this->middleware('auth')->except(['index', 'show']);
     }
 

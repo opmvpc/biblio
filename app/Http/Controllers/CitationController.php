@@ -3,13 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Article;
-use Illuminate\Http\Request;
 use App\Services\ImporterDoiService;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
 class CitationController extends Controller
 {
-    public function __construct() {
+    public function __construct()
+    {
         $this->middleware('auth');
     }
 
@@ -22,6 +23,7 @@ class CitationController extends Controller
             } catch (\InvalidArgumentException $e) {
                 $validator = Validator::make($request->only('doi'), []);
                 $validator->errors()->add('import_doi_cite', 'Le doi est invalide');
+
                 return redirect()
                     ->to(route('articles.edit', $article) .'#inp-import_doi_cite')
                     ->withInput()
@@ -45,6 +47,7 @@ class CitationController extends Controller
             } catch (\InvalidArgumentException $e) {
                 $validator = Validator::make($request->only('doi'), []);
                 $validator->errors()->add('import_doi_cite_par', 'Le doi est invalide');
+
                 return redirect()
                     ->to(route('articles.edit', $article) .'#inp-import_doi_cite_par')
                     ->withInput()

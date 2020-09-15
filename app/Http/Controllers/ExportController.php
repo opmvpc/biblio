@@ -4,9 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Article;
 use Illuminate\Support\Str;
-use Illuminate\Http\Request;
-use Xianzhe18\BibTexParser\Parser;
 use Xianzhe18\BibTexParser\Listener;
+use Xianzhe18\BibTexParser\Parser;
 
 class ExportController extends Controller
 {

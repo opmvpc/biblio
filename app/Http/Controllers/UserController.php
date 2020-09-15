@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UtilisateurRequest;
 use App\User;
 use Illuminate\Http\Request;
-use App\Http\Requests\UtilisateurRequest;
 
 class UserController extends Controller
 {
-    public function __construct() {
+    public function __construct()
+    {
         $this->middleware('auth');
     }
 

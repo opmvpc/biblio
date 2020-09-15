@@ -2,13 +2,12 @@
 
 namespace App\Services;
 
-use App\Services\ImporterBibtexService;
-
 class ImporterDoiService
 {
     private $doi;
 
-    public function __construct(string $doi) {
+    public function __construct(string $doi)
+    {
         $this->doi = static::cleanDoi($doi);
     }
 
@@ -20,7 +19,6 @@ class ImporterDoiService
 
     public function getBibtex(): string
     {
-
         $url = 'https://data.crosscite.org/application/x-bibtex/'. $this->doi;
 
         $ch = curl_init();
@@ -30,7 +28,7 @@ class ImporterDoiService
 
         $response = curl_exec($ch);
         $err = curl_error($ch);
-        curl_close ($ch);
+        curl_close($ch);
 
         if ($response == 'The resource you are looking for doesn\'t exist.') {
             throw new \InvalidArgumentException("Error Processing Request, wrong Doi", 1);

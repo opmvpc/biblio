@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Auteur;
 use App\Article;
-use Illuminate\Http\Request;
+use App\Auteur;
 use App\Http\Requests\AuteurRequest;
+use Illuminate\Http\Request;
 
 class AuteurController extends Controller
 {
-    public function __construct() {
+    public function __construct()
+    {
         $this->middleware('auth')->except(['index', 'show']);
     }
 
