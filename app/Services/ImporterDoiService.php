@@ -34,21 +34,12 @@ class ImporterDoiService
             throw new \InvalidArgumentException("Error Processing Request, wrong Doi", 1);
         }
 
-        return $this->sanatize($response);
+        return strval($response);
     }
 
     public function doi(): string
     {
         return $this->doi;
-    }
-
-    public function sanatize(string $response): string
-    {
-        // $explodeResponse = preg_split('/\r\n|\r|\n/', $response, 2);
-        // $explodeResponse[0] = "@article{\n";
-
-        // return implode('', $explodeResponse);
-        return $response;
     }
 
     private static function cleanDoi(string $doi): string

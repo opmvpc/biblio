@@ -47,7 +47,7 @@ class ImporterBibtexService
     }
 
     // récupération du doi ou de la référence depuis le bibtex
-    private function extractRef()
+    private function extractRef(): void
     {
         $result = [];
         $ref = '';
@@ -84,13 +84,13 @@ class ImporterBibtexService
                 'type' => $article->get('type'),
             ];
         })
-        ->each(function ($article) {
+        ->each(function (array $article) {
             $nouvelArticle = Article::firstOrCreate(['slug' => Str::slug($article['titre'])], $article);
 
-            if (request()->has('cite_par')) {
-                $nouvelArticle->attachEstCite(request()->cite_par);
+            if (is_object(request()) && request()->has('cite_par')) {
+                $nouvelArticle->attachEstCite(request()->input('cite_par'));
             }
-            if (request()->has('cite')) {
+            if (is_object(request()) && request()->has('cite')) {
                 $nouvelArticle->attachCite(request()->cite);
             }
 
@@ -125,7 +125,7 @@ class ImporterBibtexService
 
     private function attachResources(Article $article, ?string $attachables, string $attachableType): void
     {
-        collect(explode(',', $attachables))
+        collect(explode(',', $attachables ?? ''))
             ->map(function ($attachable) {
                 return trim($attachable);
             })
